@@ -11,4 +11,8 @@ const overrides = {
 
 export default extendTheme({
   ...overrides,
+  fonts: {
+    heading: `'Jost', sans-serif`,
+    body: `'Jost', sans-serif`,
+  },
 });
