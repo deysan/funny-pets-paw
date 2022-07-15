@@ -21,15 +21,15 @@ export const Menu: React.FC = () => {
         <Text>Lets start using The Cat API</Text>
         <SimpleGrid columns={{ sm: 3 }} spacing={{ base: 2, sm: 4 }}>
           <Flex as={Link} direction="column" gap={3} minWidth="140px" href={''}>
-            <Box h={200} flexGrow={1} bg="#B4B7FF"></Box>
+            <Box h={200} flexGrow={1} bg="var(--color-blue)"></Box>
             <Button>Voting</Button>
           </Flex>
           <Flex as={Link} direction="column" gap={3} minWidth="140px" href={''}>
-            <Box h={200} flexGrow={1} bg="#97EAB9"></Box>
+            <Box h={200} flexGrow={1} bg="var(--color-green)"></Box>
             <Button>Breeds</Button>
           </Flex>
           <Flex as={Link} direction="column" gap={3} minWidth="140px" href={''}>
-            <Box h={200} flexGrow={1} bg="#FFD280"></Box>
+            <Box h={200} flexGrow={1} bg="var(--color-yellow)"></Box>
             <Button>Gallery</Button>
           </Flex>
         </SimpleGrid>
