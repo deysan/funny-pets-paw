@@ -6,14 +6,14 @@ export const Search: React.FC = () => {
   const handleClick = () => setShow(!show);
 
   return (
-    <InputGroup size="md">
+    <InputGroup size="lg">
       <Input
-        pr="4.5rem"
+        // pr="4.5rem"
         type={show ? 'text' : 'password'}
-        placeholder="Enter password"
+        placeholder="Search for breeds by name"
       />
       <InputRightElement width="4.5rem">
-        <Button h="1.75rem" size="sm" onClick={handleClick}>
+        <Button size="md" onClick={handleClick}>
           {show ? 'Hide' : 'Show'}
         </Button>
       </InputRightElement>

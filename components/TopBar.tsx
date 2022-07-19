@@ -1,11 +1,37 @@
-import { Box } from '@chakra-ui/react';
+import NextLink from 'next/link';
 import React from 'react';
+import { HStack, IconButton, Link } from '@chakra-ui/react';
 import { Search } from './Search';
+import { SearchIcon } from '@chakra-ui/icons';
 
 export const TopBar: React.FC = () => {
   return (
-    <Box>
+    <HStack spacing={2.5}>
       <Search />
-    </Box>
+      <NextLink href="/likes" passHref>
+        <IconButton
+          as={Link}
+          size="lg"
+          aria-label="Likes"
+          icon={<SearchIcon />}
+        />
+      </NextLink>
+      <NextLink href="/favorites" passHref>
+        <IconButton
+          as={Link}
+          size="lg"
+          aria-label="Favorites"
+          icon={<SearchIcon />}
+        />
+      </NextLink>
+      <NextLink href="/dislikes" passHref>
+        <IconButton
+          as={Link}
+          size="lg"
+          aria-label="Dislikes"
+          icon={<SearchIcon />}
+        />
+      </NextLink>
+    </HStack>
   );
 };

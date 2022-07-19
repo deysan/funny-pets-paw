@@ -1,0 +1,20 @@
+import Head from 'next/head';
+import Layout from '../components/Layout';
+import React from 'react';
+import { Text } from '@chakra-ui/react';
+import type { NextPage } from 'next';
+
+const Likes: NextPage = () => {
+  return (
+    <>
+      <Head>
+        <title>Likes – Like Pets Paw</title>
+      </Head>
+      <Layout>
+        <Text>Likes</Text>
+      </Layout>
+    </>
+  );
+};
+
+export default Likes;

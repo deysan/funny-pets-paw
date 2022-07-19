@@ -42,7 +42,7 @@ export const Main: React.FC = () => {
       </Box>
       <Box>
         <Text>Lets start using The Cat API</Text>
-        <SimpleGrid columns={{ sm: 3 }} spacing={{ base: 2, sm: 4 }}>
+        <SimpleGrid columns={{ sm: 3 }} spacing={{ base: 6, sm: 4 }}>
           <NextLink href="/voting" passHref>
             <Flex
               as={Link}
