@@ -1,5 +1,5 @@
-import { extendTheme, ThemeConfig } from '@chakra-ui/react';
-import { mode, Styles } from '@chakra-ui/theme-tools';
+import { Styles, mode } from '@chakra-ui/theme-tools';
+import { ThemeConfig, extendTheme } from '@chakra-ui/react';
 
 const config: ThemeConfig = {
   initialColorMode: 'light',
@@ -10,7 +10,7 @@ const styles: Styles = {
   global: (props) => ({
     body: {
       color: mode('#1d1d1d', '#ffffff')(props),
-      bg: mode('#e5e5e5', '#1d1d1d')(props),
+      bg: mode('#f8f8f7', '#1d1d1d')(props),
     },
   }),
 };

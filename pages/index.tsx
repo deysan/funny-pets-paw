@@ -1,7 +1,10 @@
+import { Box, Center, Text } from '@chakra-ui/react';
+
 import Head from 'next/head';
+import Image from 'next/image';
 import Layout from '../components/Layout';
-import { Box, Text } from '@chakra-ui/react';
 import type { NextPage } from 'next';
+import mainImg from '../public/main.png';
 
 const Home: NextPage = () => {
   return (
@@ -12,8 +15,17 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        <Box h="100%" bg="var(--color-bg-red)">
-          <Text>Hello, World!</Text>
+        <Box
+          position="relative"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          h="100%"
+          bg="var(--color-bg-red)"
+        >
+          <Box position="absolute">
+            <Image src={mainImg} alt="girl-and-pet" placeholder="blur" />
+          </Box>
         </Box>
       </Layout>
     </>
