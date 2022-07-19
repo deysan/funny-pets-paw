@@ -2,8 +2,7 @@ import NextLink from 'next/link';
 import React from 'react';
 import { HStack, IconButton, Link } from '@chakra-ui/react';
 import { Search } from './Search';
-import { DislikeIcon, FavIcon, LikeIcon, SearchIcon } from '../assets/icons';
-// import { SearchIcon } from '@chakra-ui/icons';
+import { DislikeIcon, FavIcon, LikeIcon } from '../assets/icons';
 
 export const TopBar: React.FC = () => {
   return (

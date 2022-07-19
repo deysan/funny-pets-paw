@@ -1,7 +1,7 @@
 import Head from 'next/head';
-import Layout from '../components/Layout';
 import React from 'react';
-import { TopBar } from '../components/TopBar';
+import { Layout } from '../components';
+import { Text } from '@chakra-ui/react';
 import type { NextPage } from 'next';
 
 const Voting: NextPage = () => {
@@ -11,7 +11,7 @@ const Voting: NextPage = () => {
         <title>Voting – Like Pets Paw</title>
       </Head>
       <Layout>
-        <TopBar />
+        <Text>Voting</Text>
       </Layout>
     </>
   );

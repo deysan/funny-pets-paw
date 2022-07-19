@@ -1,9 +1,9 @@
-import { Box } from '@chakra-ui/react';
 import Head from 'next/head';
 import Image from 'next/image';
-import Layout from '../components/Layout';
-import type { NextPage } from 'next';
+import { Box } from '@chakra-ui/react';
+import { Layout } from '../components';
 import { main } from '../assets/img';
+import type { NextPage } from 'next';
 
 const Home: NextPage = () => {
   return (
@@ -17,8 +17,8 @@ const Home: NextPage = () => {
           display="flex"
           justifyContent="center"
           alignItems="center"
-          h="100%"
-          bg="var(--color-bg-red)"
+          height="100%"
+          bgColor="var(--color-bg-red)"
         >
           <Box position="absolute">
             <Image src={main} alt="girl-and-pet" placeholder="blur" />

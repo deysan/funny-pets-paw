@@ -23,7 +23,7 @@ export const Main: React.FC = () => {
       position="sticky"
       top={0}
       display="flex"
-      flexDir="column"
+      flexDirection="column"
       gap={10}
       mx={{ sm: 'auto' }}
       p={6}
@@ -55,8 +55,8 @@ export const Main: React.FC = () => {
                 display="flex"
                 justifyContent="center"
                 alignItems="center"
-                h={200}
-                bg="var(--color-blue)"
+                height={200}
+                bgColor="var(--color-blue)"
                 border="4px solid rgba(255, 255, 255, 0.6)"
                 _groupHover={{ borderColor: 'white' }}
                 // _active={{ borderColor: 'var(--color-bg-red)' }}
@@ -78,8 +78,8 @@ export const Main: React.FC = () => {
                 display="flex"
                 justifyContent="center"
                 alignItems="center"
-                h={200}
-                bg="var(--color-green)"
+                height={200}
+                bgColor="var(--color-green)"
                 border="4px solid rgba(255, 255, 255, 0.6)"
                 _groupHover={{ borderColor: 'white' }}
                 // _active={{ borderColor: 'var(--color-bg-red)' }}
@@ -101,8 +101,8 @@ export const Main: React.FC = () => {
                 display="flex"
                 justifyContent="center"
                 alignItems="center"
-                h={200}
-                bg="var(--color-yellow)"
+                height={200}
+                bgColor="var(--color-yellow)"
                 border="4px solid rgba(255, 255, 255, 0.6)"
                 _groupHover={{ borderColor: 'white' }}
                 // _active={{ borderColor: 'var(--color-bg-red)' }}
