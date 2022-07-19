@@ -1,16 +1,17 @@
 import Head from 'next/head';
 import Layout from '../components/Layout';
 import React from 'react';
-import { Text } from '@chakra-ui/react';
+import { TopBar } from '../components/TopBar';
+import type { NextPage } from 'next';
 
-const Voting = () => {
+const Voting: NextPage = () => {
   return (
     <>
       <Head>
         <title>Voting – Like Pets Paw</title>
       </Head>
       <Layout>
-        <Text>Voting</Text>
+        <TopBar />
       </Layout>
     </>
   );

@@ -2,8 +2,9 @@ import Head from 'next/head';
 import Layout from '../../components/Layout';
 import React from 'react';
 import { Text } from '@chakra-ui/react';
+import type { NextPage } from 'next';
 
-const Breeds = () => {
+const Breeds: NextPage = () => {
   return (
     <>
       <Head>

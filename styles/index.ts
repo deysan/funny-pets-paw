@@ -1,5 +1,6 @@
-import { Styles, mode } from '@chakra-ui/theme-tools';
+import { Styles, mode, StyleFunctionProps } from '@chakra-ui/theme-tools';
 import { ThemeConfig, extendTheme } from '@chakra-ui/react';
+import { components } from './theme';
 
 const config: ThemeConfig = {
   initialColorMode: 'light',
@@ -7,10 +8,10 @@ const config: ThemeConfig = {
 };
 
 const styles: Styles = {
-  global: (props) => ({
+  global: (props: StyleFunctionProps) => ({
     body: {
-      color: mode('#1d1d1d', '#ffffff')(props),
-      bg: mode('#f8f8f7', '#1d1d1d')(props),
+      color: mode('var(--color-black)', 'white')(props),
+      bg: mode('var(--color-white)', 'var(--color-black)')(props),
     },
   }),
 };
@@ -18,6 +19,7 @@ const styles: Styles = {
 const overrides = {
   config,
   styles,
+  components,
 };
 
 export default extendTheme({
