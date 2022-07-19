@@ -2,7 +2,8 @@ import NextLink from 'next/link';
 import React from 'react';
 import { HStack, IconButton, Link } from '@chakra-ui/react';
 import { Search } from './Search';
-import { SearchIcon } from '@chakra-ui/icons';
+import { DislikeIcon, FavIcon, LikeIcon, SearchIcon } from '../assets/icons';
+// import { SearchIcon } from '@chakra-ui/icons';
 
 export const TopBar: React.FC = () => {
   return (
@@ -13,7 +14,7 @@ export const TopBar: React.FC = () => {
           as={Link}
           size="lg"
           aria-label="Likes"
-          icon={<SearchIcon />}
+          icon={<LikeIcon />}
         />
       </NextLink>
       <NextLink href="/favorites" passHref>
@@ -21,7 +22,7 @@ export const TopBar: React.FC = () => {
           as={Link}
           size="lg"
           aria-label="Favorites"
-          icon={<SearchIcon />}
+          icon={<FavIcon />}
         />
       </NextLink>
       <NextLink href="/dislikes" passHref>
@@ -29,7 +30,7 @@ export const TopBar: React.FC = () => {
           as={Link}
           size="lg"
           aria-label="Dislikes"
-          icon={<SearchIcon />}
+          icon={<DislikeIcon />}
         />
       </NextLink>
     </HStack>

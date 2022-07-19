@@ -1,5 +1,12 @@
-import { Button, Input, InputGroup, InputRightElement } from '@chakra-ui/react';
+import {
+  Button,
+  IconButton,
+  Input,
+  InputGroup,
+  InputRightElement,
+} from '@chakra-ui/react';
 import React from 'react';
+import { SearchIcon } from '../assets/icons';
 
 export const Search: React.FC = () => {
   const [show, setShow] = React.useState(false);
@@ -7,15 +14,9 @@ export const Search: React.FC = () => {
 
   return (
     <InputGroup size="lg">
-      <Input
-        // pr="4.5rem"
-        type={show ? 'text' : 'password'}
-        placeholder="Search for breeds by name"
-      />
-      <InputRightElement width="4.5rem">
-        <Button size="md" onClick={handleClick}>
-          {show ? 'Hide' : 'Show'}
-        </Button>
+      <Input type="text" placeholder="Search for breeds by name" />
+      <InputRightElement>
+        <IconButton aria-label="Search" icon={<SearchIcon />} />
       </InputRightElement>
     </InputGroup>
   );

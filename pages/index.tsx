@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Layout from '../components/Layout';
 import type { NextPage } from 'next';
-import { main } from '../public/img';
+import { main } from '../assets/img';
 
 const Home: NextPage = () => {
   return (
