@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import React from 'react';
-import { Controls, Layout } from '../../components';
-import { Text } from '@chakra-ui/react';
+import { Controls, GridPhotos, Layout } from '../../components';
 import type { NextPage } from 'next';
 
 const Breeds: NextPage = () => {
@@ -12,6 +11,7 @@ const Breeds: NextPage = () => {
       </Head>
       <Layout>
         <Controls sort />
+        <GridPhotos />
       </Layout>
     </>
   );

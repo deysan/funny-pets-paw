@@ -21,12 +21,11 @@ export const Main: React.FC = () => {
   return (
     <Box
       position="sticky"
-      top={0}
+      top={6}
       display="flex"
       flexDirection="column"
       gap={10}
       mx={{ sm: 'auto' }}
-      p={6}
     >
       <Flex justifyContent="space-between" alignItems="center">
         <NextLink href="/" passHref>

@@ -12,19 +12,17 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { pathname } = useRouter();
 
   return (
-    <Container maxW="container.xl">
+    <Container maxWidth="1440px">
       <SimpleGrid
         columns={{ lg: 2 }}
-        spacing={3}
+        spacing={2}
         alignItems="start"
         minHeight="100vh"
+        paddingX={5}
+        paddingY={6}
       >
         <Main />
-        <Box
-          height="100%"
-          p={6}
-          overflowY={pathname === '/' ? 'hidden' : 'visible'}
-        >
+        <Box height="100%" overflowY={pathname === '/' ? 'hidden' : 'visible'}>
           {pathname === '/' ? (
             children
           ) : (
