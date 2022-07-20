@@ -5,7 +5,7 @@ import {
   InputRightElement,
 } from '@chakra-ui/react';
 import React from 'react';
-import { SearchIcon } from '../assets/icons';
+import { SearchIcon } from './icons';
 
 export const Search: React.FC = () => {
   const [show, setShow] = React.useState(false);

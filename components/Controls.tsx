@@ -1,5 +1,5 @@
 import React from 'react';
-import { BackIcon, UploadIcon } from '../assets/icons';
+import { BackIcon, UploadIcon } from './icons';
 import { Sort } from './Sort';
 import { useRouter } from 'next/router';
 import {
@@ -19,7 +19,7 @@ interface ControlsProps {
 
 export const Controls: React.FC<ControlsProps> = ({
   breedId,
-  sort = true,
+  sort,
   upload,
 }) => {
   const { back, pathname } = useRouter();

@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import React from 'react';
-import { Layout } from '../components';
+import { Controls, Filters, Layout } from '../components';
 import { Text } from '@chakra-ui/react';
 import type { NextPage } from 'next';
 
@@ -11,7 +11,8 @@ const Gallery: NextPage = () => {
         <title>Gallery – Like Pets Paw</title>
       </Head>
       <Layout>
-        <Text>Gallery</Text>
+        <Controls upload />
+        <Filters />
       </Layout>
     </>
   );

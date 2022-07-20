@@ -8,7 +8,7 @@ import {
   Text,
   useColorMode,
 } from '@chakra-ui/react';
-import { breeds, gallery, voting } from '../assets/img';
+import { breeds, gallery, voting } from '../public/images';
 
 import Image from 'next/image';
 import NextLink from 'next/link';

@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { Box } from '@chakra-ui/react';
 import { Layout } from '../components';
-import { main } from '../assets/img';
+import { main } from '../public/images';
 import type { NextPage } from 'next';
 
 const Home: NextPage = () => {

@@ -11,7 +11,7 @@ const Breeds: NextPage = () => {
         <title>Breeds – Like Pets Paw</title>
       </Head>
       <Layout>
-        <Text>Breeds</Text>
+        <Controls sort />
       </Layout>
     </>
   );
