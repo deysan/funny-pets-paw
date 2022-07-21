@@ -58,16 +58,16 @@ export const buttonStyles: ComponentStyleConfig = {
       },
       _disabled: {
         color: 'var(--color-bg-text)',
-        bgColor: 'var(--color-white)',
+        bgColor: 'var(--color-bg-black)',
         _hover: {
           color: 'var(--color-bg-text)',
-          bgColor: 'var(--color-white)',
+          bgColor: 'var(--color-bg-black)',
         },
       },
     }),
     info: (props: StyleFunctionProps) => ({
       color: 'var(--color-bg-text)',
-      bgColor: mode('var(--color-white)', 'var(--color-bg-white)')(props),
+      bgColor: mode('var(--color-white)', 'var(--color-bg-black)')(props),
       border: '2px solid transparent',
       _hover: {
         color: 'var(--color-red)',

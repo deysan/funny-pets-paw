@@ -35,6 +35,8 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                 gap={5}
                 p={5}
                 bgColor="white"
+                // bgColor="var(--color-bg-black)"
+                borderRadius={20}
               >
                 {children}
               </Box>

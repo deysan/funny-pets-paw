@@ -16,6 +16,7 @@ export const GridPhotos: React.FC<GridPhotosProps> = () => {
           colSpan={doubleCol.includes(index) ? 2 : 1}
           rowSpan={doubleRow.includes(index) ? 2 : 1}
           bg="papayawhip"
+          borderRadius={20}
           key={number}
         >
           <Center>{number + 1}</Center>

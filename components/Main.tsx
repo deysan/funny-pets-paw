@@ -59,6 +59,7 @@ export const Main: React.FC = () => {
                 height={200}
                 bgColor="var(--color-blue)"
                 border="4px solid rgba(255, 255, 255, 0.6)"
+                borderRadius={20}
                 _groupHover={{ borderColor: 'white' }}
                 // _active={{ borderColor: 'var(--color-bg-red)' }}
               >
@@ -88,6 +89,7 @@ export const Main: React.FC = () => {
                 height={200}
                 bgColor="var(--color-green)"
                 border="4px solid rgba(255, 255, 255, 0.6)"
+                borderRadius={20}
                 _groupHover={{ borderColor: 'white' }}
                 // _active={{ borderColor: 'var(--color-bg-red)' }}
               >
@@ -117,6 +119,7 @@ export const Main: React.FC = () => {
                 height={200}
                 bgColor="var(--color-yellow)"
                 border="4px solid rgba(255, 255, 255, 0.6)"
+                borderRadius={20}
                 _groupHover={{ borderColor: 'white' }}
                 // _active={{ borderColor: 'var(--color-bg-red)' }}
               >

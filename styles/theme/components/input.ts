@@ -7,13 +7,14 @@ export const inputStyles: ComponentStyleConfig = {
     lg: {
       field: {
         height: '60px',
-        padding: '15px 20px',
+        paddingX: '20px',
       },
     },
   },
   variants: {
     default: (props: StyleFunctionProps) => ({
       field: {
+        color: 'var(--color-black)',
         fontSize: '20px',
         lineHeight: '30px',
         bgColor: mode('white', 'var(--color-bg-black)')(props),

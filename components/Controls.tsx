@@ -41,7 +41,9 @@ export const Controls: React.FC<ControlsProps> = ({
         {upload && (
           <>
             <Spacer />
-            <Button leftIcon={<UploadIcon />}>Upload</Button>
+            <Button variant="secondary" leftIcon={<UploadIcon />}>
+              Upload
+            </Button>
           </>
         )}
       </HStack>

@@ -7,4 +7,5 @@ export * from './fav-fill';
 export * from './search';
 export * from './sort-asc';
 export * from './sort-desc';
+export * from './update';
 export * from './upload';
