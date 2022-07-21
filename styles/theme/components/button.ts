@@ -12,9 +12,21 @@ export const buttonStyles: ComponentStyleConfig = {
     },
   },
   sizes: {
+    sm: {
+      height: '36px',
+      fontSize: '12px',
+      lineHeight: '16px',
+      letterSpacing: '2px',
+    },
     md: {
       fontSize: '12px',
+      lineHeight: '16px',
       letterSpacing: '2px',
+    },
+    lg: {
+      width: '60px',
+      height: '60px',
+      borderRadius: '20px',
     },
   },
   variants: {

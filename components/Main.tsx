@@ -6,6 +6,7 @@ import {
   Link,
   SimpleGrid,
   Text,
+  textDecoration,
   useColorMode,
 } from '@chakra-ui/react';
 import { breeds, gallery, voting } from '../public/images';
@@ -49,6 +50,7 @@ export const Main: React.FC = () => {
               gap={3}
               minWidth="140px"
               role="group"
+              _hover={{ textDecoration: 'none' }}
             >
               <Box
                 display="flex"
@@ -62,7 +64,12 @@ export const Main: React.FC = () => {
               >
                 <Image src={voting} width={100} height={125} alt="voting" />
               </Box>
-              <Button>Voting</Button>
+              <Button
+                size="sm"
+                _groupHover={{ bgColor: 'var(--color-bg-red)' }}
+              >
+                Voting
+              </Button>
             </Flex>
           </NextLink>
           <NextLink href="/breeds" passHref>
@@ -72,6 +79,7 @@ export const Main: React.FC = () => {
               gap={3}
               minWidth="140px"
               role="group"
+              _hover={{ textDecoration: 'none' }}
             >
               <Box
                 display="flex"
@@ -85,7 +93,12 @@ export const Main: React.FC = () => {
               >
                 <Image src={breeds} width={117} height={163} alt="breeds" />
               </Box>
-              <Button>Breeds</Button>
+              <Button
+                size="sm"
+                _groupHover={{ bgColor: 'var(--color-bg-red)' }}
+              >
+                Breeds
+              </Button>
             </Flex>
           </NextLink>
           <NextLink href="/gallery" passHref>
@@ -95,6 +108,7 @@ export const Main: React.FC = () => {
               gap={3}
               minWidth="140px"
               role="group"
+              _hover={{ textDecoration: 'none' }}
             >
               <Box
                 display="flex"
@@ -108,7 +122,12 @@ export const Main: React.FC = () => {
               >
                 <Image src={gallery} width={117} height={163} alt="gallery" />
               </Box>
-              <Button>Gallery</Button>
+              <Button
+                size="sm"
+                _groupHover={{ bgColor: 'var(--color-bg-red)' }}
+              >
+                Gallery
+              </Button>
             </Flex>
           </NextLink>
         </SimpleGrid>
