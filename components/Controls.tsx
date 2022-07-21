@@ -1,5 +1,5 @@
 import React from 'react';
-import { BackIcon, UploadIcon } from './icons';
+import { ArrowIcon, UploadIcon } from './icons';
 import { Sort } from './Sort';
 import { useRouter } from 'next/router';
 import {
@@ -31,7 +31,7 @@ export const Controls: React.FC<ControlsProps> = ({
       <HStack>
         <IconButton
           aria-label="Back"
-          icon={<BackIcon />}
+          icon={<ArrowIcon />}
           onClick={() => back()}
         />
         <Badge>{path}</Badge>

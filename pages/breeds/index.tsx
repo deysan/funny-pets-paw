@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import React from 'react';
-import { Controls, GridPhotos, Layout } from '../../components';
+import { Controls, GridPhotos, Layout, Pagination } from '../../components';
 import type { NextPage } from 'next';
 
 const Breeds: NextPage = () => {
@@ -12,6 +12,7 @@ const Breeds: NextPage = () => {
       <Layout>
         <Controls sort />
         <GridPhotos />
+        <Pagination />
       </Layout>
     </>
   );

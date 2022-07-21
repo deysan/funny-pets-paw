@@ -1,6 +1,6 @@
 import { createIcon } from '@chakra-ui/react';
 
-export const BackIcon = createIcon({
+export const ArrowIcon = createIcon({
   viewBox: '0 0 20 20',
   path: (
     <g fill="none">
