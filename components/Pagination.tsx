@@ -6,8 +6,13 @@ export const Pagination: React.FC = () => {
   return (
     <Center>
       <HStack spacing={6}>
-        <Button leftIcon={<ArrowIcon />}>Prev</Button>
-        <Button rightIcon={<ArrowIcon transform="rotate(180deg)" />}>
+        <Button variant="secondary" leftIcon={<ArrowIcon />} isDisabled>
+          Prev
+        </Button>
+        <Button
+          variant="secondary"
+          rightIcon={<ArrowIcon transform="rotate(180deg)" />}
+        >
           Next
         </Button>
       </HStack>

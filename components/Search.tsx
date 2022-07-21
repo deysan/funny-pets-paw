@@ -15,7 +15,11 @@ export const Search: React.FC = () => {
     <InputGroup size="lg">
       <Input type="text" placeholder="Search for breeds by name" />
       <InputRightElement>
-        <IconButton aria-label="Search" icon={<SearchIcon />} />
+        <IconButton
+          variant="secondary"
+          aria-label="Search"
+          icon={<SearchIcon />}
+        />
       </InputRightElement>
     </InputGroup>
   );

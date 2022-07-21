@@ -8,7 +8,7 @@ export const buttonStyles: ComponentStyleConfig = {
     textTransform: 'uppercase',
     borderRadius: '10px',
     _focus: {
-      // boxShadow: 'none',
+      boxShadow: 'none',
     },
   },
   sizes: {
@@ -34,12 +34,52 @@ export const buttonStyles: ComponentStyleConfig = {
       color: 'var(--color-red)',
       bgColor: mode('white', 'var(--color-bg-black)')(props),
       _hover: {
-        bgColor: 'var(--color-bg-red)',
+        bgColor: mode('var(--color-bg-red)', 'var(--color-black-red)')(props),
+      },
+      _active: {
+        color: 'white',
+        bgColor: 'var(--color-red)',
+      },
+      _disabled: {
+        color: 'var(--color-bg-text)',
+        bgColor: 'var(--color-white)',
+      },
+    }),
+    secondary: (props: StyleFunctionProps) => ({
+      color: 'var(--color-red)',
+      bgColor: mode('var(--color-bg-red)', 'var(--color-black-red)')(props),
+      _hover: {
+        color: 'white',
+        bgColor: 'var(--color-red)',
+      },
+      _active: {
+        color: 'white',
+        bgColor: 'var(--color-red)',
+      },
+      _disabled: {
+        color: 'var(--color-bg-text)',
+        bgColor: 'var(--color-white)',
+        _hover: {
+          color: 'var(--color-bg-text)',
+          bgColor: 'var(--color-white)',
+        },
+      },
+    }),
+    info: (props: StyleFunctionProps) => ({
+      color: 'var(--color-bg-text)',
+      bgColor: mode('var(--color-white)', 'var(--color-bg-white)')(props),
+      border: '2px solid transparent',
+      _hover: {
+        color: 'var(--color-red)',
+        borderColor: 'var(--color-bg-red)',
+      },
+      _active: {
+        color: 'var(--color-red)',
+        borderColor: 'var(--color-bg-red)',
       },
     }),
   },
   defaultProps: {
-    size: 'md',
     variant: 'primary',
   },
 };

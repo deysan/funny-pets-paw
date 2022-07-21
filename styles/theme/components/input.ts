@@ -32,7 +32,6 @@ export const inputStyles: ComponentStyleConfig = {
     }),
   },
   defaultProps: {
-    size: 'md',
     variant: 'default',
   },
 };

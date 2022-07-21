@@ -19,8 +19,12 @@ export const Sort: React.FC<SortProps> = () => {
         <option value={15}>Limit: 15</option>
         <option value={20}>Limit: 20</option>
       </Select>
-      <IconButton aria-label="Sort Desc" icon={<SortDescIcon />} />
-      <IconButton aria-label="Sort Asc" icon={<SortAscIcon />} />
+      <IconButton
+        variant="info"
+        aria-label="Sort Desc"
+        icon={<SortDescIcon />}
+      />
+      <IconButton variant="info" aria-label="Sort Asc" icon={<SortAscIcon />} />
     </HStack>
   );
 };

@@ -30,6 +30,7 @@ export const Controls: React.FC<ControlsProps> = ({
     <Box>
       <HStack>
         <IconButton
+          variant="secondary"
           aria-label="Back"
           icon={<ArrowIcon />}
           onClick={() => back()}
