@@ -8,20 +8,21 @@ export const buttonStyles: ComponentStyleConfig = {
     textTransform: 'uppercase',
     borderRadius: '10px',
     _focus: {
-      boxShadow: 'none',
+      // boxShadow: 'none',
     },
   },
   sizes: {
     md: {
       fontSize: '12px',
+      letterSpacing: '2px',
     },
   },
   variants: {
     primary: (props: StyleFunctionProps) => ({
       color: 'var(--color-red)',
-      bg: mode('white', 'var(--color-bg-black)')(props),
+      bgColor: mode('white', 'var(--color-bg-black)')(props),
       _hover: {
-        bg: 'var(--color-bg-red)',
+        bgColor: 'var(--color-bg-red)',
       },
     }),
   },
