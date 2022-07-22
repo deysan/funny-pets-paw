@@ -38,7 +38,9 @@ export const Main: React.FC = () => {
       </Flex>
       <Box>
         <Heading>Hi intern!</Heading>
-        <Text>Welcome to MI 2022 Front-end test</Text>
+        <Text color="var(--color-bg-text)">
+          Welcome to MI 2022 Front-end test
+        </Text>
       </Box>
       <Box>
         <Text>Lets start using The Cat API</Text>

@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react';
 
 interface ControlsProps {
-  breedId?: number;
+  breedId?: string | string[];
   sort?: boolean;
   upload?: boolean;
 }
@@ -35,7 +35,7 @@ export const Controls: React.FC<ControlsProps> = ({
           icon={<ArrowIcon />}
           onClick={() => back()}
         />
-        <Badge>{path}</Badge>
+        <Badge variant={breedId ? 'secondary' : 'primary'}>{path}</Badge>
         {breedId && <Badge>{breedId}</Badge>}
         {sort && <Sort />}
         {upload && (
