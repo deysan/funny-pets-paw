@@ -11,17 +11,22 @@ import {
   Spacer,
 } from '@chakra-ui/react';
 import { Breed } from '../models';
+import { Params } from '../pages/breeds';
 
 interface ControlsProps {
   breedId?: string | string[];
   sort?: boolean;
   upload?: boolean;
+  params?: Params;
+  setParams?: React.Dispatch<React.SetStateAction<Params>>;
 }
 
 export const Controls: React.FC<ControlsProps> = ({
   breedId,
   sort,
   upload,
+  params,
+  setParams,
 }) => {
   const { back, pathname } = useRouter();
 
@@ -38,7 +43,7 @@ export const Controls: React.FC<ControlsProps> = ({
         />
         <Badge variant={breedId ? 'secondary' : 'primary'}>{path}</Badge>
         {breedId && <Badge>{breedId}</Badge>}
-        {sort && <Sort />}
+        {sort && <Sort params={params} setParams={setParams} />}
         {upload && (
           <>
             <Spacer />

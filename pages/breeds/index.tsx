@@ -34,9 +34,8 @@ const Breeds: NextPage<BreedsProps> = () => {
     has_breeds: true,
   });
 
-  console.log(params);
-
   useEffect(() => {
+    console.log(params);
     setLoading(true);
 
     api.get('/images/search', { params }).then((res) => {
@@ -54,7 +53,7 @@ const Breeds: NextPage<BreedsProps> = () => {
         <title>Breeds – Like Pets Paw</title>
       </Head>
       <Layout>
-        <Controls sort />
+        <Controls params={params} setParams={setParams} sort />
         <GridPhotos breeds={breeds} />
         {breeds.length ? (
           <Pagination params={params} setParams={setParams} />
