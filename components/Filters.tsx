@@ -106,10 +106,10 @@ export const Filters: React.FC<FiltersProps> = () => {
             iconSize="12px"
             name="limit"
           >
-            <option value={5}>5 items per page</option>
-            <option value={10}>10 items per page</option>
-            <option value={15}>15 items per page</option>
-            <option value={20}>20 items per page</option>
+            <option value="5">5 items per page</option>
+            <option value="10">10 items per page</option>
+            <option value="15">15 items per page</option>
+            <option value="20">20 items per page</option>
           </Select>
         </Box>
         <IconButton aria-label="Sort Asc" icon={<UpdateIcon />} />

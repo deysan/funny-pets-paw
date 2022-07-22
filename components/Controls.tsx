@@ -10,6 +10,7 @@ import {
   IconButton,
   Spacer,
 } from '@chakra-ui/react';
+import { Breed } from '../models';
 
 interface ControlsProps {
   breedId?: string | string[];

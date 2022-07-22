@@ -1,9 +1,12 @@
 import React from 'react';
-import { Center, Grid, GridItem } from '@chakra-ui/react';
+import { Center, Grid, GridItem, Image } from '@chakra-ui/react';
+import { Breeds } from '../pages/breeds';
 
-interface GridPhotosProps {}
+interface GridPhotosProps {
+  breeds: Breeds[];
+}
 
-export const GridPhotos: React.FC<GridPhotosProps> = () => {
+export const GridPhotos: React.FC<GridPhotosProps> = ({ breeds }) => {
   const array = Array.from({ length: 20 }, (v, i) => i);
 
   const doubleCol = [3, 8, 13, 18];
@@ -11,16 +14,18 @@ export const GridPhotos: React.FC<GridPhotosProps> = () => {
 
   return (
     <Grid autoRows="140px" templateColumns="repeat(3, 1fr)" gap={5}>
-      {array.map((number, index) => (
+      {breeds.map((breed, index) => (
         <GridItem
           colSpan={doubleCol.includes(index) ? 2 : 1}
           rowSpan={doubleRow.includes(index) ? 2 : 1}
-          bg="papayawhip"
+          bgColor="papayawhip"
+          bgImage={`url(${breed.url})`}
+          bgPosition="center"
+          bgSize="cover"
+          bgRepeat="no-repeat"
           borderRadius={20}
-          key={number}
-        >
-          <Center>{number + 1}</Center>
-        </GridItem>
+          key={breed.id}
+        ></GridItem>
       ))}
     </Grid>
   );
