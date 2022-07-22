@@ -17,7 +17,25 @@ export const Sort: React.FC<SortProps> = ({ params, setParams }) => {
     setParams &&
       setParams((prevState) => ({
         ...prevState,
-        breed_ids: event.target.value,
+        [event.target.name]: event.target.value,
+        page: 0,
+      }));
+  };
+
+  const handleClickDesc = () => {
+    setParams &&
+      setParams((prevState) => ({
+        ...prevState,
+        order: prevState.order !== 'desc' ? 'desc' : 'random',
+        page: 0,
+      }));
+  };
+
+  const handleClickAsc = () => {
+    setParams &&
+      setParams((prevState) => ({
+        ...prevState,
+        order: prevState.order !== 'asc' ? 'asc' : 'random',
         page: 0,
       }));
   };
@@ -33,7 +51,7 @@ export const Sort: React.FC<SortProps> = ({ params, setParams }) => {
         icon={<DropdownIcon />}
         iconColor="var(--color-bg-text)"
         iconSize="12px"
-        name="breed"
+        name="breed_ids"
         value={params?.breed_ids}
         onChange={handleChange}
       >
@@ -53,6 +71,7 @@ export const Sort: React.FC<SortProps> = ({ params, setParams }) => {
         iconColor="var(--color-bg-text)"
         iconSize="12px"
         name="limit"
+        onChange={handleChange}
       >
         <option value="5">Limit: 5</option>
         <option value="10">Limit: 10</option>
@@ -63,8 +82,16 @@ export const Sort: React.FC<SortProps> = ({ params, setParams }) => {
         variant="info"
         aria-label="Sort Desc"
         icon={<SortDescIcon />}
+        onClick={handleClickDesc}
+        isActive={params?.order === 'desc'}
       />
-      <IconButton variant="info" aria-label="Sort Asc" icon={<SortAscIcon />} />
+      <IconButton
+        variant="info"
+        aria-label="Sort Asc"
+        icon={<SortAscIcon />}
+        onClick={handleClickAsc}
+        isActive={params?.order === 'asc'}
+      />
     </HStack>
   );
 };

@@ -25,11 +25,12 @@ interface BreedsProps {}
 const Breeds: NextPage<BreedsProps> = () => {
   const [breeds, setBreeds] = useState<Breeds[]>([]);
   const [isLoading, setLoading] = useState(false);
+  const [paginationCount, setPaginationCount] = useState('');
   const [params, setParams] = useState<Params>({
     breed_ids: '',
     limit: '5',
     page: 0,
-    order: '',
+    order: 'random',
     size: 'small',
     has_breeds: true,
   });
@@ -40,6 +41,7 @@ const Breeds: NextPage<BreedsProps> = () => {
 
     api.get('/images/search', { params }).then((res) => {
       setBreeds(res.data);
+      setPaginationCount(res.headers['pagination-count']);
       setLoading(false);
     });
   }, [params]);
@@ -55,8 +57,12 @@ const Breeds: NextPage<BreedsProps> = () => {
       <Layout>
         <Controls params={params} setParams={setParams} sort />
         <GridPhotos breeds={breeds} />
-        {breeds.length ? (
-          <Pagination params={params} setParams={setParams} />
+        {Number(paginationCount) > Number(params.limit) ? (
+          <Pagination
+            params={params}
+            setParams={setParams}
+            paginationCount={paginationCount}
+          />
         ) : null}
       </Layout>
     </>

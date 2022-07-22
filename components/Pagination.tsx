@@ -6,11 +6,13 @@ import { Params } from '../pages/breeds';
 interface PaginationProps {
   params: Params;
   setParams: React.Dispatch<React.SetStateAction<Params>>;
+  paginationCount: string;
 }
 
 export const Pagination: React.FC<PaginationProps> = ({
   params,
   setParams,
+  paginationCount,
 }) => {
   return (
     <Center>
@@ -31,6 +33,10 @@ export const Pagination: React.FC<PaginationProps> = ({
         <Button
           variant="secondary"
           rightIcon={<ArrowIcon transform="rotate(180deg)" />}
+          isDisabled={
+            Math.ceil(Number(paginationCount) / Number(params.limit)) ===
+            params.page + 1
+          }
           onClick={() => {
             setParams((prevState) => ({
               ...prevState,
