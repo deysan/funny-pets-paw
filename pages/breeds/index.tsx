@@ -1,9 +1,9 @@
+import api from '../../config';
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
+import { Breed } from '../../models';
 import { Controls, GridPhotos, Layout, Pagination } from '../../components';
 import type { NextPage } from 'next';
-import api from '../../config';
-import { Breed } from '../../models';
 
 export type Breeds = {
   breeds: Breed[];
@@ -46,9 +46,6 @@ const Breeds: NextPage<BreedsProps> = () => {
     });
   }, [params]);
 
-  // if (isLoading) return <p>Loading...</p>;
-  // if (!data) return <p>No profile data</p>;
-
   return (
     <>
       <Head>
@@ -56,12 +53,13 @@ const Breeds: NextPage<BreedsProps> = () => {
       </Head>
       <Layout>
         <Controls params={params} setParams={setParams} sort />
-        <GridPhotos breeds={breeds} />
+        <GridPhotos breeds={breeds} isLoading={isLoading} />
         {Number(paginationCount) > Number(params.limit) ? (
           <Pagination
             params={params}
             setParams={setParams}
             paginationCount={paginationCount}
+            isLoading={isLoading}
           />
         ) : null}
       </Layout>

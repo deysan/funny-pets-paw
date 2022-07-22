@@ -7,12 +7,14 @@ interface PaginationProps {
   params: Params;
   setParams: React.Dispatch<React.SetStateAction<Params>>;
   paginationCount: string;
+  isLoading: boolean;
 }
 
 export const Pagination: React.FC<PaginationProps> = ({
   params,
   setParams,
   paginationCount,
+  isLoading,
 }) => {
   return (
     <Center>
@@ -20,7 +22,7 @@ export const Pagination: React.FC<PaginationProps> = ({
         <Button
           variant="secondary"
           leftIcon={<ArrowIcon />}
-          isDisabled={params.page === 0}
+          isDisabled={isLoading || params.page === 0}
           onClick={() => {
             setParams((prevState) => ({
               ...prevState,
@@ -34,8 +36,8 @@ export const Pagination: React.FC<PaginationProps> = ({
           variant="secondary"
           rightIcon={<ArrowIcon transform="rotate(180deg)" />}
           isDisabled={
-            Math.ceil(Number(paginationCount) / Number(params.limit)) ===
-            params.page + 1
+            isLoading ||
+            Number(paginationCount) / Number(params.limit) === params.page + 1
           }
           onClick={() => {
             setParams((prevState) => ({
