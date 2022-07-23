@@ -10,7 +10,7 @@ const Breeds: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Breed – Like Pets Paw</title>
+        <title>Breed – Funny Pets Paw</title>
       </Head>
       <Layout>
         <Controls breedId={query.id} />

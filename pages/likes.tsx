@@ -8,7 +8,7 @@ const Likes: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Likes – Like Pets Paw</title>
+        <title>Likes – Funny Pets Paw</title>
       </Head>
       <Layout>
         <Text>Likes</Text>

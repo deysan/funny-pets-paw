@@ -8,7 +8,7 @@ const Favorites: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Favorites – Like Pets Paw</title>
+        <title>Favorites – Funny Pets Paw</title>
       </Head>
       <Layout>
         <Text>Favorites</Text>

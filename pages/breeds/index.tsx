@@ -49,7 +49,7 @@ const Breeds: NextPage<BreedsProps> = () => {
   return (
     <>
       <Head>
-        <title>Breeds – Like Pets Paw</title>
+        <title>Breeds – Funny Pets Paw</title>
       </Head>
       <Layout>
         <Controls params={params} setParams={setParams} sort />

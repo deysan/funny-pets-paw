@@ -8,7 +8,7 @@ const Voting: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Voting – Like Pets Paw</title>
+        <title>Voting – Funny Pets Paw</title>
       </Head>
       <Layout>
         <Controls />

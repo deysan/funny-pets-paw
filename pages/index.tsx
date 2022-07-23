@@ -9,7 +9,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Like Pets Paw</title>
+        <title>Funny Pets Paw</title>
       </Head>
       <Layout>
         <Box

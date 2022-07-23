@@ -8,7 +8,7 @@ const Gallery: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Gallery – Like Pets Paw</title>
+        <title>Gallery – Funny Pets Paw</title>
       </Head>
       <Layout>
         <Controls upload />
