@@ -11,13 +11,12 @@ import {
   Spacer,
 } from '@chakra-ui/react';
 import { Breed } from '../models';
-import { Breeds, Params } from '../pages/breeds';
 
 interface ControlsProps {
   breedId?: string | string[];
   sort?: boolean;
   upload?: boolean;
-  breeds?: Breeds[];
+  breeds?: Breed[];
   breedIds?: string;
   setBreedIds?: React.Dispatch<React.SetStateAction<string>>;
   limit?: number;
