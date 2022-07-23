@@ -7,19 +7,23 @@ import {
   Select,
   SimpleGrid,
   Text,
+  useColorMode,
 } from '@chakra-ui/react';
 
 interface FiltersProps {}
 
 export const Filters: React.FC<FiltersProps> = () => {
+  const { colorMode } = useColorMode();
+
   return (
     <SimpleGrid
       columns={2}
       spacingX={5}
       spacingY={2.5}
       p={5}
-      bgColor="var(--color-white)"
-      // bgColor="var(--color-bg-black)"
+      bgColor={
+        colorMode === 'light' ? 'var(--color-white)' : 'var(--color-bg-black)'
+      }
       borderRadius={20}
     >
       <Box>

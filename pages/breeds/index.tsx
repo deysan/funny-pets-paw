@@ -1,14 +1,15 @@
 import api from '../../config';
 import Head from 'next/head';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Breed } from '../../models';
 import { Controls, GridPhotos, Layout, Pagination } from '../../components';
 import type { NextPage } from 'next';
 
 export type Breeds = {
-  breeds: Breed[];
   id: string;
-  url: string;
+  name: string;
+  imgId: string;
+  imgSrc: string;
 };
 
 export type Params = {
@@ -24,26 +25,92 @@ interface BreedsProps {}
 
 const Breeds: NextPage<BreedsProps> = () => {
   const [breeds, setBreeds] = useState<Breeds[]>([]);
+  const [images, setImages] = useState([]);
   const [isLoading, setLoading] = useState(false);
-  const [paginationCount, setPaginationCount] = useState('');
-  const [params, setParams] = useState<Params>({
-    breed_ids: '',
-    limit: '5',
-    page: 0,
-    order: 'random',
-    size: 'small',
-    has_breeds: true,
-  });
+  const [currentPage, setCurrentPage] = useState(0);
+  const [breedIds, setBreedIds] = useState('');
+  const [limit, setLimit] = useState(5);
+  const [order, setOrder] = useState('random');
+
+  const pageCount = useMemo(
+    () => Math.ceil(breeds.length / limit),
+    [breeds.length, limit],
+  );
+
+  const sortedBreeds = useMemo(() => {
+    if (order === 'asc') {
+      return [...breeds].sort((a, b) => a.id.localeCompare(b.id));
+    } else if (order === 'desc') {
+      return [...breeds].sort((a, b) => b.id.localeCompare(a.id));
+    } else {
+      return [...breeds]
+        .map((value) => ({ value, sort: Math.random() }))
+        .sort((a, b) => a.sort - b.sort)
+        .map(({ value }) => value);
+    }
+  }, [breeds, order]);
+
+  const filteredBreeds = useMemo(() => {
+    const startIndex = currentPage * limit;
+
+    return [...sortedBreeds].splice(startIndex, limit);
+  }, [currentPage, limit, sortedBreeds]);
+
+  // const getImagesByBreed = useCallback(async () => {
+  //   setLoading(true);
+
+  //   const response = await api.get('/images/search').then((res) => {
+  //     setBreeds(
+  //       res.data.map((breed) => {
+  //         return {
+  //           id: breed.id,
+  //           name: breed.name,
+  //         };
+  //       }),
+  //     );
+  //     setLoading(false);
+  //   });
+  // }, []);
 
   useEffect(() => {
     setLoading(true);
 
-    api.get('/images/search', { params }).then((res) => {
-      setBreeds(res.data);
-      setPaginationCount(res.headers['pagination-count']);
+    api.get('/breeds').then((res) => {
+      setBreeds(
+        res.data
+          .map((breed) => {
+            return {
+              id: breed.id,
+              name: breed.name,
+              imgId: breed.image?.id,
+              imgSrc: breed.image?.url,
+            };
+          })
+          .filter((breed) => breed.imgSrc),
+      );
       setLoading(false);
     });
-  }, [params]);
+  }, []);
+
+  useEffect(() => {
+    setCurrentPage(0);
+  }, [breedIds, limit, order]);
+
+  // useEffect(() => {
+  //   setLoading(true);
+
+  //   api.get('/breeds').then((res) => {
+  //     setBreeds(
+  //       res.data.map((breed) => {
+  //         return {
+  //           id: breed.id,
+  //           name: breed.name,
+  //         };
+  //       }),
+  //     );
+  //     setLoading(false);
+  //   });
+  // }, []);
 
   return (
     <>
@@ -51,13 +118,24 @@ const Breeds: NextPage<BreedsProps> = () => {
         <title>Breeds – Funny Pets Paw</title>
       </Head>
       <Layout>
-        <Controls params={params} setParams={setParams} sort />
-        <GridPhotos breeds={breeds} isLoading={isLoading} />
-        {Number(paginationCount) > Number(params.limit) ? (
+        <Controls
+          breeds={breeds}
+          breedIds={breedIds}
+          setBreedIds={setBreedIds}
+          limit={limit}
+          setLimit={setLimit}
+          order={order}
+          setOrder={setOrder}
+          setCurrentPage={setCurrentPage}
+          sort
+        />
+        <GridPhotos breeds={filteredBreeds} isLoading={isLoading} info />
+        {breeds.length > limit ? (
           <Pagination
-            params={params}
-            setParams={setParams}
-            paginationCount={paginationCount}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            pageCount={pageCount}
+            limit={limit}
             isLoading={isLoading}
           />
         ) : null}

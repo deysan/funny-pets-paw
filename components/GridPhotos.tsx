@@ -13,11 +13,15 @@ import {
 } from '@chakra-ui/react';
 
 interface GridPhotosProps {
+  info?: boolean;
+  like?: boolean;
   breeds: Breeds[];
   isLoading: boolean;
 }
 
 export const GridPhotos: React.FC<GridPhotosProps> = ({
+  info,
+  like,
   breeds,
   isLoading,
 }) => {
@@ -54,8 +58,8 @@ export const GridPhotos: React.FC<GridPhotosProps> = ({
           key={breed.id}
         >
           <Image
-            src={breed.url}
-            alt={breed.breeds[0]?.name}
+            src={breed.imgSrc}
+            alt={breed.name}
             width="100%"
             height="100%"
             objectFit="cover"
@@ -78,14 +82,13 @@ export const GridPhotos: React.FC<GridPhotosProps> = ({
             role="group"
             _groupHover={{ display: 'flex' }}
           >
-            <NextLink
-              href={'/breeds/' + `${breed.breeds[0]?.id || '#'}`}
-              passHref
-            >
-              <LinkOverlay width="100%">
-                <Badge variant="link">{breed.breeds[0]?.name || '?'}</Badge>
-              </LinkOverlay>
-            </NextLink>
+            {info && (
+              <NextLink href={`/breeds/${breed.id}`} passHref>
+                <LinkOverlay width="100%">
+                  <Badge variant="link">{breed.name}</Badge>
+                </LinkOverlay>
+              </NextLink>
+            )}
           </LinkBox>
         </GridItem>
       ))}

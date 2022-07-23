@@ -4,16 +4,18 @@ import { Button, Center, HStack } from '@chakra-ui/react';
 import { Params } from '../pages/breeds';
 
 interface PaginationProps {
-  params: Params;
-  setParams: React.Dispatch<React.SetStateAction<Params>>;
-  paginationCount: string;
+  currentPage: number;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  pageCount: number;
+  limit: number;
   isLoading: boolean;
 }
 
 export const Pagination: React.FC<PaginationProps> = ({
-  params,
-  setParams,
-  paginationCount,
+  currentPage,
+  setCurrentPage,
+  pageCount,
+  limit,
   isLoading,
 }) => {
   return (
@@ -22,12 +24,9 @@ export const Pagination: React.FC<PaginationProps> = ({
         <Button
           variant="secondary"
           leftIcon={<ArrowIcon />}
-          isDisabled={isLoading || params.page === 0}
+          isDisabled={isLoading || currentPage === 0}
           onClick={() => {
-            setParams((prevState) => ({
-              ...prevState,
-              page: params.page - 1,
-            }));
+            setCurrentPage((prevState) => prevState - 1);
           }}
         >
           Prev
@@ -35,15 +34,9 @@ export const Pagination: React.FC<PaginationProps> = ({
         <Button
           variant="secondary"
           rightIcon={<ArrowIcon transform="rotate(180deg)" />}
-          isDisabled={
-            isLoading ||
-            Number(paginationCount) / Number(params.limit) === params.page + 1
-          }
+          isDisabled={isLoading || currentPage === pageCount - 1}
           onClick={() => {
-            setParams((prevState) => ({
-              ...prevState,
-              page: params.page + 1,
-            }));
+            setCurrentPage((prevState) => prevState + 1);
           }}
         >
           Next

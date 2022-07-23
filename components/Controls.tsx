@@ -11,22 +11,34 @@ import {
   Spacer,
 } from '@chakra-ui/react';
 import { Breed } from '../models';
-import { Params } from '../pages/breeds';
+import { Breeds, Params } from '../pages/breeds';
 
 interface ControlsProps {
   breedId?: string | string[];
   sort?: boolean;
   upload?: boolean;
-  params?: Params;
-  setParams?: React.Dispatch<React.SetStateAction<Params>>;
+  breeds?: Breeds[];
+  breedIds?: string;
+  setBreedIds?: React.Dispatch<React.SetStateAction<string>>;
+  limit?: number;
+  setLimit?: React.Dispatch<React.SetStateAction<number>>;
+  order?: string;
+  setOrder?: React.Dispatch<React.SetStateAction<string>>;
+  setCurrentPage?: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const Controls: React.FC<ControlsProps> = ({
   breedId,
   sort,
   upload,
-  params,
-  setParams,
+  breeds,
+  breedIds,
+  setBreedIds,
+  limit,
+  setLimit,
+  order,
+  setOrder,
+  setCurrentPage,
 }) => {
   const { back, pathname } = useRouter();
 
@@ -43,7 +55,18 @@ export const Controls: React.FC<ControlsProps> = ({
         />
         <Badge variant={breedId ? 'secondary' : 'primary'}>{path}</Badge>
         {breedId && <Badge>{breedId}</Badge>}
-        {sort && <Sort params={params} setParams={setParams} />}
+        {sort && (
+          <Sort
+            breeds={breeds}
+            breedIds={breedIds}
+            setBreedIds={setBreedIds}
+            limit={limit}
+            setLimit={setLimit}
+            order={order}
+            setOrder={setOrder}
+            setCurrentPage={setCurrentPage}
+          />
+        )}
         {upload && (
           <>
             <Spacer />

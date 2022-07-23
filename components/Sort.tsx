@@ -3,46 +3,50 @@ import React, { useEffect, useState } from 'react';
 import { Breed } from '../models';
 import { DropdownIcon, SortAscIcon, SortDescIcon } from './icons';
 import { HStack, IconButton, Select } from '@chakra-ui/react';
-import { Params } from '../pages/breeds';
+import { Breeds, Params } from '../pages/breeds';
 
 interface SortProps {
-  params: Params | undefined;
-  setParams: React.Dispatch<React.SetStateAction<Params>> | undefined;
+  breeds?: Breeds[];
+  breedIds?: string;
+  setBreedIds?: React.Dispatch<React.SetStateAction<string>>;
+  limit?: number;
+  setLimit?: React.Dispatch<React.SetStateAction<number>>;
+  order?: string;
+  setOrder?: React.Dispatch<React.SetStateAction<string>>;
+  setCurrentPage?: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export const Sort: React.FC<SortProps> = ({ params, setParams }) => {
-  const [options, setOptions] = useState<Breed[]>([]);
+export const Sort: React.FC<SortProps> = ({
+  breeds,
+  breedIds,
+  setBreedIds,
+  limit,
+  setLimit,
+  order,
+  setOrder,
+  setCurrentPage,
+}) => {
+  const handleChangeBreed = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setBreedIds && setBreedIds(event.target.value);
+    // setCurrentPage && setCurrentPage(0);
+  };
 
-  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setParams &&
-      setParams((prevState) => ({
-        ...prevState,
-        [event.target.name]: event.target.value,
-        page: 0,
-      }));
+  const handleChangeLimit = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setLimit && setLimit(Number(event.target.value));
+    // setCurrentPage && setCurrentPage(0);
   };
 
   const handleClickDesc = () => {
-    setParams &&
-      setParams((prevState) => ({
-        ...prevState,
-        order: prevState.order !== 'desc' ? 'desc' : 'random',
-        page: 0,
-      }));
+    setOrder &&
+      setOrder((prevState) => (prevState !== 'desc' ? 'desc' : 'random'));
+    // setCurrentPage && setCurrentPage(0);
   };
 
   const handleClickAsc = () => {
-    setParams &&
-      setParams((prevState) => ({
-        ...prevState,
-        order: prevState.order !== 'asc' ? 'asc' : 'random',
-        page: 0,
-      }));
+    setOrder &&
+      setOrder((prevState) => (prevState !== 'asc' ? 'asc' : 'random'));
+    // setCurrentPage && setCurrentPage(0);
   };
-
-  useEffect(() => {
-    api.get<Breed[]>('/breeds').then((res) => setOptions(res.data));
-  }, []);
 
   return (
     <HStack w="100%" spacing={2.5}>
@@ -52,12 +56,12 @@ export const Sort: React.FC<SortProps> = ({ params, setParams }) => {
         iconColor="var(--color-bg-text)"
         iconSize="12px"
         name="breed_ids"
-        value={params?.breed_ids}
-        onChange={handleChange}
+        value={breedIds}
+        onChange={handleChangeBreed}
       >
         <>
           <option value="">All</option>
-          {options?.map((breed) => (
+          {breeds?.map((breed) => (
             <option value={breed.id} key={breed.name}>
               {breed.name}
             </option>
@@ -71,7 +75,8 @@ export const Sort: React.FC<SortProps> = ({ params, setParams }) => {
         iconColor="var(--color-bg-text)"
         iconSize="12px"
         name="limit"
-        onChange={handleChange}
+        value={limit}
+        onChange={handleChangeLimit}
       >
         <option value="5">Limit: 5</option>
         <option value="10">Limit: 10</option>
@@ -83,14 +88,14 @@ export const Sort: React.FC<SortProps> = ({ params, setParams }) => {
         aria-label="Sort Desc"
         icon={<SortDescIcon />}
         onClick={handleClickDesc}
-        isActive={params?.order === 'desc'}
+        isActive={order === 'desc'}
       />
       <IconButton
         variant="info"
         aria-label="Sort Asc"
         icon={<SortAscIcon />}
         onClick={handleClickAsc}
-        isActive={params?.order === 'asc'}
+        isActive={order === 'asc'}
       />
     </HStack>
   );
