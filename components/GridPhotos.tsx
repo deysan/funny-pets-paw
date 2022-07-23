@@ -1,6 +1,6 @@
 import NextLink from 'next/link';
 import React from 'react';
-import { Breeds } from '../pages/breeds';
+import { Breed } from '../models';
 import {
   Badge,
   Box,
@@ -15,7 +15,7 @@ import {
 interface GridPhotosProps {
   info?: boolean;
   like?: boolean;
-  breeds: Breeds[];
+  breeds: Breed[];
   isLoading: boolean;
 }
 
@@ -55,10 +55,10 @@ export const GridPhotos: React.FC<GridPhotosProps> = ({
           bgColor="papayawhip"
           borderRadius={20}
           role="group"
-          key={breed.id}
+          key={breed.image.id}
         >
           <Image
-            src={breed.imgSrc}
+            src={breed.image.url}
             alt={breed.name}
             width="100%"
             height="100%"

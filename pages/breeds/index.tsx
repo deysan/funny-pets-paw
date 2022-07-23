@@ -1,16 +1,10 @@
 import api from '../../config';
 import Head from 'next/head';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { Breed } from '../../models';
+import { Breed, Image } from '../../models';
 import { Controls, GridPhotos, Layout, Pagination } from '../../components';
+import { paginate, sort } from '../../utils';
 import type { NextPage } from 'next';
-
-export type Breeds = {
-  id: string;
-  name: string;
-  imgId: string;
-  imgSrc: string;
-};
 
 export type Params = {
   breed_ids: string;
@@ -24,93 +18,82 @@ export type Params = {
 interface BreedsProps {}
 
 const Breeds: NextPage<BreedsProps> = () => {
-  const [breeds, setBreeds] = useState<Breeds[]>([]);
-  const [images, setImages] = useState([]);
+  const [breeds, setBreeds] = useState<Breed[]>([]);
+  const [images, setImages] = useState<Breed[]>([]);
   const [isLoading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
-  const [breedIds, setBreedIds] = useState('');
+  const [breedIds, setBreedIds] = useState('all');
   const [limit, setLimit] = useState(5);
   const [order, setOrder] = useState('random');
 
-  const pageCount = useMemo(
+  const pageCountBreeds = useMemo(
     () => Math.ceil(breeds.length / limit),
     [breeds.length, limit],
   );
 
-  const sortedBreeds = useMemo(() => {
-    if (order === 'asc') {
-      return [...breeds].sort((a, b) => a.id.localeCompare(b.id));
-    } else if (order === 'desc') {
-      return [...breeds].sort((a, b) => b.id.localeCompare(a.id));
-    } else {
-      return [...breeds]
-        .map((value) => ({ value, sort: Math.random() }))
-        .sort((a, b) => a.sort - b.sort)
-        .map(({ value }) => value);
-    }
-  }, [breeds, order]);
+  const pageCountImages = useMemo(
+    () => Math.ceil(images.length / limit),
+    [images.length, limit],
+  );
 
-  const filteredBreeds = useMemo(() => {
-    const startIndex = currentPage * limit;
+  const sortedBreeds = useMemo(() => sort(breeds, order), [breeds, order]);
+  const sortedImages = useMemo(() => sort(images, order), [images, order]);
 
-    return [...sortedBreeds].splice(startIndex, limit);
-  }, [currentPage, limit, sortedBreeds]);
+  const filteredBreeds = useMemo(
+    () => paginate(sortedBreeds, currentPage, limit),
+    [currentPage, limit, sortedBreeds],
+  );
 
-  // const getImagesByBreed = useCallback(async () => {
-  //   setLoading(true);
+  const filteredImages = useMemo(
+    () => paginate(sortedImages, currentPage, limit),
+    [currentPage, limit, sortedImages],
+  );
 
-  //   const response = await api.get('/images/search').then((res) => {
-  //     setBreeds(
-  //       res.data.map((breed) => {
-  //         return {
-  //           id: breed.id,
-  //           name: breed.name,
-  //         };
-  //       }),
-  //     );
-  //     setLoading(false);
-  //   });
-  // }, []);
-
-  useEffect(() => {
+  const getImagesAll = useCallback(() => {
     setLoading(true);
 
-    api.get('/breeds').then((res) => {
-      setBreeds(
-        res.data
-          .map((breed) => {
-            return {
-              id: breed.id,
-              name: breed.name,
-              imgId: breed.image?.id,
-              imgSrc: breed.image?.url,
-            };
-          })
-          .filter((breed) => breed.imgSrc),
-      );
+    api.get<Breed[]>('/breeds').then((res) => {
+      setBreeds(res.data.filter((breed) => breed.image?.url));
       setLoading(false);
     });
   }, []);
 
+  const getImagesByBreed = useCallback(() => {
+    setLoading(true);
+
+    api
+      .get<Image[]>('/images/search', {
+        params: { breed_ids: breedIds, limit: 99, page: 0 },
+      })
+      .then((res) => {
+        setImages(
+          res.data.map(
+            (breed): Breed => ({
+              id: breed.breeds?.[0]?.id || '',
+              name: breed.breeds?.[0]?.name || '',
+              image: {
+                id: breed.id,
+                url: breed.url,
+              },
+            }),
+          ),
+        );
+        setLoading(false);
+      });
+  }, [breedIds]);
+
+  useEffect(() => {
+    if (breedIds === 'all') {
+      getImagesAll();
+    } else {
+      getImagesByBreed();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [breedIds]);
+
   useEffect(() => {
     setCurrentPage(0);
   }, [breedIds, limit, order]);
-
-  // useEffect(() => {
-  //   setLoading(true);
-
-  //   api.get('/breeds').then((res) => {
-  //     setBreeds(
-  //       res.data.map((breed) => {
-  //         return {
-  //           id: breed.id,
-  //           name: breed.name,
-  //         };
-  //       }),
-  //     );
-  //     setLoading(false);
-  //   });
-  // }, []);
 
   return (
     <>
@@ -129,12 +112,19 @@ const Breeds: NextPage<BreedsProps> = () => {
           setCurrentPage={setCurrentPage}
           sort
         />
-        <GridPhotos breeds={filteredBreeds} isLoading={isLoading} info />
-        {breeds.length > limit ? (
+        <GridPhotos
+          breeds={(breedIds === 'all' && filteredBreeds) || filteredImages}
+          isLoading={isLoading}
+          info
+        />
+        {(breedIds === 'all' && breeds.length > limit) ||
+        images.length > limit ? (
           <Pagination
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
-            pageCount={pageCount}
+            pageCount={
+              (breedIds === 'all' && pageCountBreeds) || pageCountImages
+            }
             limit={limit}
             isLoading={isLoading}
           />
