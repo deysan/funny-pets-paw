@@ -1,13 +1,11 @@
 import React from 'react';
 import { ArrowIcon } from './icons';
 import { Button, Center, HStack } from '@chakra-ui/react';
-import { Params } from '../pages/breeds';
 
 interface PaginationProps {
   currentPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   pageCount: number;
-  limit: number;
   isLoading: boolean;
 }
 
@@ -15,7 +13,6 @@ export const Pagination: React.FC<PaginationProps> = ({
   currentPage,
   setCurrentPage,
   pageCount,
-  limit,
   isLoading,
 }) => {
   return (

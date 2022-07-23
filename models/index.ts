@@ -34,3 +34,10 @@ export type Image = {
     name: string | undefined;
   }[];
 };
+
+export type Params = {
+  breed_ids: string;
+  limit: number;
+  order: string;
+  mime_types: string;
+};

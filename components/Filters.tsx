@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { DropdownIcon, SortAscIcon, SortDescIcon, UpdateIcon } from './icons';
 import {
   Box,
@@ -9,11 +9,42 @@ import {
   Text,
   useColorMode,
 } from '@chakra-ui/react';
+import { Breed, Params } from '../models';
+import api from '../config';
 
-interface FiltersProps {}
+interface FiltersProps {
+  setParams: React.Dispatch<React.SetStateAction<Params>>;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+}
 
-export const Filters: React.FC<FiltersProps> = () => {
+export const Filters: React.FC<FiltersProps> = ({
+  setParams,
+  setCurrentPage,
+}) => {
   const { colorMode } = useColorMode();
+  const [breeds, setBreeds] = useState<Breed[]>();
+  const [filterParams, setFilterParams] = useState<Params>({
+    breed_ids: '',
+    limit: 5,
+    order: 'random',
+    mime_types: '',
+  });
+
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setFilterParams((prevState) => ({
+      ...prevState,
+      [event.target.name]: event.target.value,
+    }));
+  };
+
+  const handleClick = () => {
+    setParams(filterParams);
+    setCurrentPage(0);
+  };
+
+  useEffect(() => {
+    api.get<Breed[]>('/breeds').then((res) => setBreeds(res.data));
+  }, []);
 
   return (
     <SimpleGrid
@@ -42,6 +73,8 @@ export const Filters: React.FC<FiltersProps> = () => {
           iconColor="var(--color-bg-text)"
           iconSize="12px"
           name="order"
+          value={filterParams.order}
+          onChange={handleChange}
         >
           <option value="random">Random</option>
           <option value="desc">Desc</option>
@@ -63,11 +96,13 @@ export const Filters: React.FC<FiltersProps> = () => {
           icon={<DropdownIcon />}
           iconColor="var(--color-bg-text)"
           iconSize="12px"
-          name="type"
+          name="mime_types"
+          value={filterParams.mime_types}
+          onChange={handleChange}
         >
-          <option value="all">All</option>
-          <option value="static">Static</option>
-          <option value="animated">Animated</option>
+          <option value="">All</option>
+          <option value="jpg,png">Static</option>
+          <option value="gif">Animated</option>
         </Select>
       </Box>
       <Box>
@@ -85,11 +120,16 @@ export const Filters: React.FC<FiltersProps> = () => {
           icon={<DropdownIcon />}
           iconColor="var(--color-bg-text)"
           iconSize="12px"
-          name="breed"
+          name="breed_ids"
+          value={filterParams.breed_ids}
+          onChange={handleChange}
         >
-          <option value="none">None</option>
-          <option value="static">Static</option>
-          <option value="animated">Animated</option>
+          <option value="">None</option>
+          {breeds?.map((breed) => (
+            <option value={breed.id} key={breed.name}>
+              {breed.name}
+            </option>
+          ))}
         </Select>
       </Box>
       <HStack alignItems="end">
@@ -109,14 +149,20 @@ export const Filters: React.FC<FiltersProps> = () => {
             iconColor="var(--color-bg-text)"
             iconSize="12px"
             name="limit"
+            value={filterParams.limit}
+            onChange={handleChange}
           >
-            <option value="5">5 items per page</option>
-            <option value="10">10 items per page</option>
-            <option value="15">15 items per page</option>
-            <option value="20">20 items per page</option>
+            <option value={5}>5 items per page</option>
+            <option value={10}>10 items per page</option>
+            <option value={15}>15 items per page</option>
+            <option value={20}>20 items per page</option>
           </Select>
         </Box>
-        <IconButton aria-label="Sort Asc" icon={<UpdateIcon />} />
+        <IconButton
+          aria-label="Update"
+          icon={<UpdateIcon />}
+          onClick={handleClick}
+        />
       </HStack>
     </SimpleGrid>
   );

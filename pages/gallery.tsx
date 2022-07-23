@@ -1,5 +1,7 @@
+import api from '../config';
 import Head from 'next/head';
 import React, { useCallback, useEffect, useState } from 'react';
+import { Breed, Image, Params } from '../models';
 import {
   Controls,
   Filters,
@@ -7,27 +9,16 @@ import {
   Layout,
   Pagination,
 } from '../components';
-import { Text } from '@chakra-ui/react';
 import type { NextPage } from 'next';
-import { Breeds } from './breeds';
-import api from '../config';
-
-export type Params = {
-  breed_ids: string;
-  limit: string;
-  page: number;
-  order: string;
-  mime_types: string;
-};
 
 const Gallery: NextPage = () => {
-  const [breeds, setBreeds] = useState<Breeds[]>([]);
+  const [breeds, setBreeds] = useState<Breed[]>([]);
   const [isLoading, setLoading] = useState(false);
-  const [paginationCount, setPaginationCount] = useState('');
+  const [paginationCount, setPaginationCount] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
   const [params, setParams] = useState<Params>({
     breed_ids: '',
-    limit: '5',
-    page: 0,
+    limit: 5,
     order: 'random',
     mime_types: '',
   });
@@ -35,16 +26,31 @@ const Gallery: NextPage = () => {
   const getImages = useCallback(() => {
     setLoading(true);
 
-    api.get('/images/search', { params }).then((res) => {
-      setBreeds(res.data);
-      setPaginationCount(res.headers['pagination-count']);
-      setLoading(false);
-    });
-  }, [params]);
+    api
+      .get<Image[]>('/images/search', {
+        params: { ...params, page: currentPage },
+      })
+      .then((res) => {
+        setBreeds(
+          res.data.map(
+            (breed): Breed => ({
+              id: breed.breeds?.[0]?.id || '',
+              name: breed.breeds?.[0]?.name || '',
+              image: {
+                id: breed.id,
+                url: breed.url,
+              },
+            }),
+          ),
+        );
+        setPaginationCount(Number(res.headers['pagination-count']));
+        setLoading(false);
+      });
+  }, [currentPage, params]);
 
   useEffect(() => {
     getImages();
-  }, [getImages]);
+  }, [currentPage, getImages]);
 
   return (
     <>
@@ -53,13 +59,13 @@ const Gallery: NextPage = () => {
       </Head>
       <Layout>
         <Controls upload />
-        <Filters />
+        <Filters setParams={setParams} setCurrentPage={setCurrentPage} />
         <GridPhotos breeds={breeds} isLoading={isLoading} like />
-        {Number(paginationCount) > Number(params.limit) ? (
+        {paginationCount > params.limit ? (
           <Pagination
-            params={params}
-            setParams={setParams}
-            paginationCount={paginationCount}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            pageCount={paginationCount / params.limit}
             isLoading={isLoading}
           />
         ) : null}

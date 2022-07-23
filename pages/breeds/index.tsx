@@ -6,18 +6,7 @@ import { Controls, GridPhotos, Layout, Pagination } from '../../components';
 import { paginate, sort } from '../../utils';
 import type { NextPage } from 'next';
 
-export type Params = {
-  breed_ids: string;
-  limit: string;
-  page: number;
-  order: string;
-  size: string;
-  has_breeds: boolean;
-};
-
-interface BreedsProps {}
-
-const Breeds: NextPage<BreedsProps> = () => {
+const Breeds: NextPage = () => {
   const [breeds, setBreeds] = useState<Breed[]>([]);
   const [images, setImages] = useState<Breed[]>([]);
   const [isLoading, setLoading] = useState(false);
@@ -125,7 +114,6 @@ const Breeds: NextPage<BreedsProps> = () => {
             pageCount={
               (breedIds === 'all' && pageCountBreeds) || pageCountImages
             }
-            limit={limit}
             isLoading={isLoading}
           />
         ) : null}
