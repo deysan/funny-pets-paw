@@ -1,6 +1,7 @@
 import NextLink from 'next/link';
 import React from 'react';
 import { Breed } from '../models';
+import { NotFound } from './NotFound';
 import {
   Badge,
   Box,
@@ -28,7 +29,7 @@ export const GridPhotos: React.FC<GridPhotosProps> = ({
   const doubleCol = [3, 8, 13, 18];
   const doubleRow = [0, 3, 7, 8, 10, 13, 17, 18];
 
-  if (isLoading)
+  if (isLoading) {
     return (
       <Box
         display="flex"
@@ -39,6 +40,9 @@ export const GridPhotos: React.FC<GridPhotosProps> = ({
         <Spinner />
       </Box>
     );
+  }
+
+  if (!breeds.length) return <NotFound />;
 
   return (
     <Grid
