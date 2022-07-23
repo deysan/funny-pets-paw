@@ -36,7 +36,6 @@ const Breeds: NextPage<BreedsProps> = () => {
   });
 
   useEffect(() => {
-    console.log(params);
     setLoading(true);
 
     api.get('/images/search', { params }).then((res) => {

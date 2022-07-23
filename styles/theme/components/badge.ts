@@ -1,4 +1,5 @@
 import type { ComponentStyleConfig } from '@chakra-ui/react';
+import { mode, StyleFunctionProps } from '@chakra-ui/theme-tools';
 
 export const badgeStyles: ComponentStyleConfig = {
   baseStyle: {
@@ -21,6 +22,20 @@ export const badgeStyles: ComponentStyleConfig = {
       color: 'var(--color-red)',
       bgColor: 'var(--color-bg-red)',
     },
+    link: (props: StyleFunctionProps) => ({
+      width: '100%',
+      color: 'var(--color-red)',
+      fontSize: '16px',
+      fontWeight: 400,
+      lineHeight: '24px',
+      letterSpacing: 'normal',
+      textAlign: 'center',
+      textTransform: 'none',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      bgColor: mode('white', '#282828')(props),
+    }),
   },
   defaultProps: {
     variant: 'primary',

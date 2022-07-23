@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Container, SimpleGrid } from '@chakra-ui/react';
+import { Box, Container, SimpleGrid, useColorMode } from '@chakra-ui/react';
 import { Main } from './Main';
 import { TopBar } from './TopBar';
 import { useRouter } from 'next/router';
@@ -10,6 +10,7 @@ interface LayoutProps {
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { pathname } = useRouter();
+  const { colorMode } = useColorMode();
 
   return (
     <Container maxWidth="1440px">
@@ -34,8 +35,9 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                 height="100%"
                 gap={5}
                 p={5}
-                bgColor="white"
-                // bgColor="var(--color-bg-black)"
+                bgColor={
+                  colorMode === 'light' ? 'white' : 'var(--color-bg-black)'
+                }
                 borderRadius={20}
               >
                 {children}
