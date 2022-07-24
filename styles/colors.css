@@ -1,0 +1,13 @@
+:root {
+  --color-red: #ff868e;
+  --color-green: #97eab9;
+  --color-yellow: #ffd280;
+  --color-blue: #b4b7ff;
+  --color-white: #f8f8f7;
+  --color-black: #1d1d1d;
+  --color-black-red: rgba(255, 134, 142, 0.2);
+  --color-bg-black: rgba(255, 255, 255, 0.05);
+  --color-bg-red: #fbe0dc;
+  --color-bg-text: #8c8c8c;
+  --color-hover-red: rgba(255, 134, 142, 0.6);
+}
