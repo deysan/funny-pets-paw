@@ -1,17 +1,21 @@
 import NextLink from 'next/link';
-import React from 'react';
-import { Breed } from '../models';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { Breed, Favorite } from '../models';
 import { NotFound } from './NotFound';
 import {
   Badge,
   Box,
   Grid,
   GridItem,
+  IconButton,
   Image,
   LinkBox,
   LinkOverlay,
   Spinner,
 } from '@chakra-ui/react';
+import { FavFillIcon, FavIcon } from './icons';
+import api from '../config';
+import { user } from '../utils';
 
 interface GridPhotosProps {
   info?: boolean;
@@ -28,6 +32,51 @@ export const GridPhotos: React.FC<GridPhotosProps> = ({
 }) => {
   const doubleCol = [3, 8, 13, 18];
   const doubleRow = [0, 3, 7, 8, 10, 13, 17, 18];
+
+  const userId = useMemo(() => user(), []);
+
+  const [favorites, setFavorites] = useState<Favorite[]>([]);
+
+  const favIds = useMemo(
+    () => favorites.map((fav) => fav.image_id),
+    [favorites],
+  );
+
+  const getFavorites = useCallback(() => {
+    api.get<Favorite[]>('/favourites').then((res) => {
+      setFavorites(res.data);
+    });
+  }, []);
+
+  const handleFavorite = useCallback(
+    (imageId: string) => {
+      if (favIds.includes(imageId)) {
+        const favId = favorites.filter((fav) => fav.image_id === imageId);
+
+        api.delete(`/favourites/${favId[0].id}`).then((res) => {
+          if (res.data.message === 'SUCCESS') {
+            getFavorites();
+          }
+        });
+      } else {
+        api
+          .post('/favourites', { image_id: imageId, sub_id: userId })
+          .then((res) => {
+            if (res.data.message === 'SUCCESS') {
+              getFavorites();
+            }
+          });
+      }
+    },
+    [favIds, favorites, getFavorites, userId],
+  );
+
+  useEffect(() => {
+    if (like) {
+      getFavorites();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (isLoading) {
     return (
@@ -76,7 +125,7 @@ export const GridPhotos: React.FC<GridPhotosProps> = ({
             left="0"
             display="none"
             justifyContent="center"
-            alignItems="end"
+            alignItems={info ? 'end' : 'center'}
             width="100%"
             height="100%"
             padding={5}
@@ -92,6 +141,19 @@ export const GridPhotos: React.FC<GridPhotosProps> = ({
                   <Badge variant="link">{breed.name}</Badge>
                 </LinkOverlay>
               </NextLink>
+            )}
+            {like && (
+              <IconButton
+                aria-label="Favorites"
+                icon={
+                  favIds.includes(breed.image.id) ? (
+                    <FavFillIcon />
+                  ) : (
+                    <FavIcon />
+                  )
+                }
+                onClick={() => handleFavorite(breed.image.id)}
+              />
             )}
           </LinkBox>
         </GridItem>
