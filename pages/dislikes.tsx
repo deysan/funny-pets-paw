@@ -20,8 +20,8 @@ const Dislikes: NextPage = () => {
       })
       .then((res) => {
         setDislikes(res.data.filter((breed) => breed.value === 0));
-        setLoading(false);
-      });
+      })
+      .finally(() => setLoading(false));
   }, [userId]);
 
   useEffect(() => {

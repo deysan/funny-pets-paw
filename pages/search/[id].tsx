@@ -17,10 +17,12 @@ const Search: NextPage = () => {
   const getBreedsAll = useCallback(() => {
     setLoading(true);
 
-    api.get<Breed[]>('/breeds').then((res) => {
-      setBreeds(res.data.filter((breed) => breed.image?.url));
-      setLoading(false);
-    });
+    api
+      .get<Breed[]>('/breeds')
+      .then((res) => {
+        setBreeds(res.data.filter((breed) => breed.image?.url));
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   const filteredBreeds = useMemo(

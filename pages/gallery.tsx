@@ -44,8 +44,8 @@ const Gallery: NextPage = () => {
           ),
         );
         setPaginationCount(Number(res.headers['pagination-count']));
-        setLoading(false);
-      });
+      })
+      .finally(() => setLoading(false));
   }, [currentPage, params]);
 
   useEffect(() => {

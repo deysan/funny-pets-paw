@@ -20,8 +20,8 @@ const Favorites: NextPage = () => {
       })
       .then((res) => {
         setFavorites(res.data);
-        setLoading(false);
-      });
+      })
+      .finally(() => setLoading(false));
   }, [userId]);
 
   useEffect(() => {

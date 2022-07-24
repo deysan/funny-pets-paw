@@ -20,8 +20,8 @@ const Likes: NextPage = () => {
       })
       .then((res) => {
         setLikes(res.data.filter((breed) => breed.value === 1));
-        setLoading(false);
-      });
+      })
+      .finally(() => setLoading(false));
   }, [userId]);
 
   useEffect(() => {

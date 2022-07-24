@@ -46,8 +46,8 @@ const Voting: NextPage = () => {
       })
       .then((res) => {
         setImage(res.data[0]);
-        setLoading(false);
-      });
+      })
+      .finally(() => setLoading(false));
   }, [userId]);
 
   const getFavorites = useCallback(() => {

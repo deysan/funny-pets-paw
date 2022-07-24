@@ -41,10 +41,12 @@ const Breeds: NextPage = () => {
   const getImagesAll = useCallback(() => {
     setLoading(true);
 
-    api.get<Breed[]>('/breeds').then((res) => {
-      setBreeds(res.data.filter((breed) => breed.image?.url));
-      setLoading(false);
-    });
+    api
+      .get<Breed[]>('/breeds')
+      .then((res) => {
+        setBreeds(res.data.filter((breed) => breed.image?.url));
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   const getImagesByBreed = useCallback(() => {
@@ -67,8 +69,8 @@ const Breeds: NextPage = () => {
             }),
           ),
         );
-        setLoading(false);
-      });
+      })
+      .finally(() => setLoading(false));
   }, [breedIds]);
 
   useEffect(() => {
