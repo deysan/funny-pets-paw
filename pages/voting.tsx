@@ -14,8 +14,13 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { Controls, Layout } from '../components';
-import { DislikeIcon, FavIcon, LikeIcon } from '../components/icons';
-import { Image } from '../models';
+import {
+  DislikeIcon,
+  FavFillIcon,
+  FavIcon,
+  LikeIcon,
+} from '../components/icons';
+import { Favorite, Image } from '../models';
 import { user } from '../utils';
 import type { NextPage } from 'next';
 
@@ -23,9 +28,15 @@ const Voting: NextPage = () => {
   const { colorMode } = useColorMode();
 
   const [image, setImage] = useState<Image>();
+  const [favorites, setFavorites] = useState<Favorite[]>([]);
   const [isLoading, setLoading] = useState(false);
 
   const userId = useMemo(() => user(), []);
+
+  const favIds = useMemo(
+    () => favorites.map((fav) => fav.image_id),
+    [favorites],
+  );
 
   const getImage = useCallback(() => {
     setLoading(true);
@@ -39,8 +50,53 @@ const Voting: NextPage = () => {
       });
   }, [userId]);
 
+  const getFavorites = useCallback(() => {
+    api
+      .get<Favorite[]>('/favourites', { params: { sub_id: userId } })
+      .then((res) => {
+        setFavorites(res.data);
+      });
+  }, [userId]);
+
+  const handleVoting = useCallback(
+    (imageId: string, vote: boolean) => {
+      api
+        .post('/votes', { image_id: imageId, value: vote, sub_id: userId })
+        .then((res) => {
+          if (res.data.message === 'SUCCESS') {
+            getImage();
+          }
+        });
+    },
+    [getImage, userId],
+  );
+
+  const handleFavorite = useCallback(
+    (imageId: string) => {
+      if (favIds.includes(imageId)) {
+        const favId = favorites.filter((fav) => fav.image_id === imageId);
+
+        api.delete(`/favourites/${favId[0].id}`).then((res) => {
+          if (res.data.message === 'SUCCESS') {
+            getFavorites();
+          }
+        });
+      } else {
+        api
+          .post('/favourites', { image_id: imageId, sub_id: userId })
+          .then((res) => {
+            if (res.data.message === 'SUCCESS') {
+              getFavorites();
+            }
+          });
+      }
+    },
+    [favIds, favorites, getFavorites, userId],
+  );
+
   useEffect(() => {
     getImage();
+    getFavorites();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -94,13 +150,21 @@ const Voting: NextPage = () => {
                 borderLeftRadius={20}
                 icon={<LikeIcon w={8} h={8} />}
                 isDisabled={isLoading}
+                onClick={() => handleVoting(image?.id || '', true)}
               />
               <IconButton
                 aria-label="Favorite"
                 variant="red"
                 size="xl"
-                icon={<FavIcon w={8} h={8} />}
+                icon={
+                  favIds.includes(image?.id || '') ? (
+                    <FavFillIcon w={8} h={8} />
+                  ) : (
+                    <FavIcon w={8} h={8} />
+                  )
+                }
                 isDisabled={isLoading}
+                onClick={() => handleFavorite(image?.id || '')}
               />
               <IconButton
                 aria-label="Dislike"
@@ -109,6 +173,7 @@ const Voting: NextPage = () => {
                 borderRightRadius={20}
                 icon={<DislikeIcon w={8} h={8} />}
                 isDisabled={isLoading}
+                onClick={() => handleVoting(image?.id || '', false)}
               />
             </HStack>
           </Box>
