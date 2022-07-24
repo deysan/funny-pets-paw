@@ -36,6 +36,16 @@ export const badgeStyles: ComponentStyleConfig = {
       overflow: 'hidden',
       bgColor: mode('white', '#282828')(props),
     }),
+    time: (props: StyleFunctionProps) => ({
+      padding: '4px 12px',
+      color: mode('var(--color-black)', 'white')(props),
+      fontSize: '16px',
+      fontWeight: 400,
+      lineHeight: '24px',
+      letterSpacing: 'normal',
+      bgColor: mode('white', 'var(--color-black)')(props),
+      borderRadius: '5px',
+    }),
   },
   defaultProps: {
     variant: 'primary',

@@ -2,15 +2,18 @@ import api from '../config';
 import Head from 'next/head';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
+  Badge,
   Box,
   HStack,
   IconButton,
   Img,
+  Spacer,
+  Spinner,
   Text,
   useColorMode,
   VStack,
 } from '@chakra-ui/react';
-import { Controls, Layout, NotFound } from '../components';
+import { Controls, Layout } from '../components';
 import { DislikeIcon, FavIcon, LikeIcon } from '../components/icons';
 import { Image } from '../models';
 import { user } from '../utils';
@@ -20,15 +23,20 @@ const Voting: NextPage = () => {
   const { colorMode } = useColorMode();
 
   const [image, setImage] = useState<Image>();
+  const [isLoading, setLoading] = useState(false);
 
   const userId = useMemo(() => user(), []);
 
   const getImage = useCallback(() => {
+    setLoading(true);
     api
       .get<Image[]>('/images/search', {
         params: { limit: 1, size: 'full', sub_id: userId },
       })
-      .then((res) => setImage(res.data[0]));
+      .then((res) => {
+        setImage(res.data[0]);
+        setLoading(false);
+      });
   }, [userId]);
 
   useEffect(() => {
@@ -45,15 +53,27 @@ const Voting: NextPage = () => {
         <Controls />
         <VStack spacing={12}>
           <Box position="relative" width="100%" textAlign="center">
-            <Img
-              src={image?.url}
-              alt={image?.id}
-              width="100%"
-              height="360px"
-              objectFit="cover"
-              objectPosition="center"
-              borderRadius={20}
-            />
+            {isLoading ? (
+              <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                height="360px"
+              >
+                <Spinner />
+              </Box>
+            ) : (
+              <Img
+                src={image?.url}
+                alt={image?.id}
+                width="100%"
+                height="360px"
+                objectFit="cover"
+                objectPosition="center"
+                borderRadius={20}
+              />
+            )}
+
             <HStack
               position="absolute"
               spacing={1}
@@ -73,12 +93,14 @@ const Voting: NextPage = () => {
                 size="xl"
                 borderLeftRadius={20}
                 icon={<LikeIcon w={8} h={8} />}
+                isDisabled={isLoading}
               />
               <IconButton
                 aria-label="Favorite"
                 variant="red"
                 size="xl"
                 icon={<FavIcon w={8} h={8} />}
+                isDisabled={isLoading}
               />
               <IconButton
                 aria-label="Dislike"
@@ -86,12 +108,14 @@ const Voting: NextPage = () => {
                 size="xl"
                 borderRightRadius={20}
                 icon={<DislikeIcon w={8} h={8} />}
+                isDisabled={isLoading}
               />
             </HStack>
           </Box>
           <VStack spacing={3} width="100%">
-            <Box
-              p={5}
+            <HStack
+              spacing={5}
+              padding={5}
               width="100%"
               bgColor={
                 colorMode === 'light'
@@ -100,8 +124,22 @@ const Voting: NextPage = () => {
               }
               borderRadius={10}
             >
-              <Text color="var(--color-bg-text)">No item found</Text>
-            </Box>
+              <Badge variant="time">22:22</Badge>
+              <Box>
+                <Text as="span" color="var(--color-bg-text)">
+                  Image ID:{' '}
+                </Text>
+                <Text as="span" fontWeight={500}>
+                  dssvsdvs
+                </Text>
+                <Text as="span" color="var(--color-bg-text)">
+                  {' '}
+                  was
+                </Text>
+              </Box>
+              <Spacer />
+              <FavIcon />
+            </HStack>
           </VStack>
         </VStack>
       </Layout>

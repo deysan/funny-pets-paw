@@ -46,10 +46,12 @@ export const GridPhotos: React.FC<GridPhotosProps> = ({
   );
 
   const getFavorites = useCallback(() => {
-    api.get<Favorite[]>('/favourites').then((res) => {
-      setFavorites(res.data);
-    });
-  }, []);
+    api
+      .get<Favorite[]>('/favourites', { params: { sub_id: userId } })
+      .then((res) => {
+        setFavorites(res.data);
+      });
+  }, [userId]);
 
   const handleFavorite = useCallback(
     (imageId: string) => {
