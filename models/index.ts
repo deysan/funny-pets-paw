@@ -7,19 +7,7 @@ export type Breed = {
   };
 };
 
-export type Category = {
-  id: number;
-  name: string;
-};
-
-export type Fact = {
-  id: string;
-  text: string;
-  language_code: string;
-  breed_id: string;
-};
-
-export type Favorite = {
+export type Votes = {
   id: string;
   name?: string;
   image_id: string;
@@ -29,6 +17,7 @@ export type Favorite = {
     id: string;
     url: string;
   };
+  value?: number;
 };
 
 export type Image = {

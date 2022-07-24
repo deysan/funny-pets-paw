@@ -20,7 +20,7 @@ import {
   FavIcon,
   LikeIcon,
 } from '../components/icons';
-import { Favorite, Image } from '../models';
+import { Votes, Image } from '../models';
 import { user } from '../utils';
 import type { NextPage } from 'next';
 
@@ -28,7 +28,7 @@ const Voting: NextPage = () => {
   const { colorMode } = useColorMode();
 
   const [image, setImage] = useState<Image>();
-  const [favorites, setFavorites] = useState<Favorite[]>([]);
+  const [favorites, setFavorites] = useState<Votes[]>([]);
   const [isLoading, setLoading] = useState(false);
 
   const userId = useMemo(() => user(), []);
@@ -52,7 +52,7 @@ const Voting: NextPage = () => {
 
   const getFavorites = useCallback(() => {
     api
-      .get<Favorite[]>('/favourites', { params: { sub_id: userId } })
+      .get<Votes[]>('/favourites', { params: { sub_id: userId } })
       .then((res) => {
         setFavorites(res.data);
       });

@@ -1,7 +1,7 @@
 import api from '../config';
 import NextLink from 'next/link';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { Breed, Favorite } from '../models';
+import { Breed, Votes } from '../models';
 import { FavFillIcon, FavIcon } from './icons';
 import { NotFound } from './NotFound';
 import { user } from '../utils';
@@ -21,7 +21,7 @@ import {
 interface GridPhotosProps {
   info?: boolean;
   like?: boolean;
-  breeds: Breed[] | Favorite[];
+  breeds: Breed[] | Votes[];
   isLoading: boolean;
 }
 
@@ -36,7 +36,7 @@ export const GridPhotos: React.FC<GridPhotosProps> = ({
 }) => {
   const { colorMode } = useColorMode();
 
-  const [favorites, setFavorites] = useState<Favorite[]>([]);
+  const [favorites, setFavorites] = useState<Votes[]>([]);
 
   const userId = useMemo(() => user(), []);
 
@@ -47,7 +47,9 @@ export const GridPhotos: React.FC<GridPhotosProps> = ({
 
   const getFavorites = useCallback(() => {
     api
-      .get<Favorite[]>('/favourites', { params: { sub_id: userId } })
+      .get<Votes[]>('/favourites', {
+        params: { sub_id: userId },
+      })
       .then((res) => {
         setFavorites(res.data);
       });

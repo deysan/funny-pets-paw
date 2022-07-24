@@ -2,12 +2,12 @@ import api from '../config';
 import Head from 'next/head';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Controls, GridPhotos, Layout } from '../components';
-import { Favorite } from '../models';
+import { Votes } from '../models';
 import { user } from '../utils';
 import type { NextPage } from 'next';
 
 const Favorites: NextPage = () => {
-  const [favorites, setFavorites] = useState<Favorite[]>([]);
+  const [favorites, setFavorites] = useState<Votes[]>([]);
   const [isLoading, setLoading] = useState(false);
 
   const userId = useMemo(() => user(), []);
@@ -15,7 +15,9 @@ const Favorites: NextPage = () => {
   const getFavorites = useCallback(() => {
     setLoading(true);
     api
-      .get<Favorite[]>('/favourites', { params: { sub_id: userId } })
+      .get<Votes[]>('/favourites', {
+        params: { sub_id: userId },
+      })
       .then((res) => {
         setFavorites(res.data);
         setLoading(false);
@@ -26,6 +28,7 @@ const Favorites: NextPage = () => {
     getFavorites();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <>
       <Head>
