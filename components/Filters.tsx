@@ -160,7 +160,7 @@ export const Filters: React.FC<FiltersProps> = ({
         </Box>
         <IconButton
           aria-label="Update"
-          icon={<UpdateIcon />}
+          icon={<UpdateIcon w={5} h={5} />}
           onClick={handleClick}
         />
       </HStack>

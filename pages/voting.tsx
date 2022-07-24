@@ -177,7 +177,7 @@ const Voting: NextPage = () => {
               />
             </HStack>
           </Box>
-          <VStack spacing={3} width="100%">
+          {/* <VStack spacing={3} width="100%">
             <HStack
               spacing={5}
               padding={5}
@@ -195,7 +195,7 @@ const Voting: NextPage = () => {
                   Image ID:{' '}
                 </Text>
                 <Text as="span" fontWeight={500}>
-                  dssvsdvs
+                  Sddsf72CJsf
                 </Text>
                 <Text as="span" color="var(--color-bg-text)">
                   {' '}
@@ -205,7 +205,7 @@ const Voting: NextPage = () => {
               <Spacer />
               <FavIcon />
             </HStack>
-          </VStack>
+          </VStack> */}
         </VStack>
       </Layout>
     </>

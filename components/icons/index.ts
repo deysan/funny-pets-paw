@@ -3,6 +3,7 @@ export * from './dislike';
 export * from './dropdown';
 export * from './fav';
 export * from './like';
+export * from './logo';
 export * from './fav-fill';
 export * from './search';
 export * from './sort-asc';

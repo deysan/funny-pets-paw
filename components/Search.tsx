@@ -18,7 +18,7 @@ export const Search: React.FC = () => {
         <IconButton
           variant="secondary"
           aria-label="Search"
-          icon={<SearchIcon />}
+          icon={<SearchIcon w={5} h={5} />}
         />
       </InputRightElement>
     </InputGroup>

@@ -3,11 +3,14 @@ import {
   Button,
   Flex,
   Heading,
+  IconButton,
   Link,
   SimpleGrid,
+  Stack,
   Switch,
   Text,
   useColorMode,
+  VStack,
 } from '@chakra-ui/react';
 import { breeds, gallery, voting } from '../public/images';
 
@@ -16,6 +19,7 @@ import NextLink from 'next/link';
 import React from 'react';
 import logo from '../public/logo.svg';
 import { useRouter } from 'next/router';
+import { LogoIcon } from './icons';
 
 export const Main: React.FC = () => {
   const { pathname } = useRouter();
@@ -35,7 +39,7 @@ export const Main: React.FC = () => {
       <Flex justifyContent="space-between" alignItems="center">
         <NextLink href="/" passHref>
           <Box as={Link}>
-            <Image src={logo} width={106} height={24} alt="logo" />
+            <LogoIcon width="106px" height="24px" />
           </Box>
         </NextLink>
         <Switch
@@ -44,14 +48,18 @@ export const Main: React.FC = () => {
           isChecked={colorMode === 'dark'}
         />
       </Flex>
-      <Box>
-        <Heading>Hi intern!</Heading>
-        <Text color="var(--color-bg-text)">
+      <Stack mt={5}>
+        <Heading fontSize="44px" fontWeight={500}>
+          Hi intern!
+        </Heading>
+        <Text fontSize="20px" color="var(--color-bg-text)">
           Welcome to MI 2022 Front-end test
         </Text>
-      </Box>
-      <Box>
-        <Text>Lets start using The Cat API</Text>
+      </Stack>
+      <Box mt={5}>
+        <Text mb={5} fontSize="20px" fontWeight={500}>
+          Lets start using The Cat API
+        </Text>
         <SimpleGrid columns={{ sm: 3 }} spacing={{ base: 6, sm: 4 }}>
           <NextLink href="/voting" passHref>
             <Flex

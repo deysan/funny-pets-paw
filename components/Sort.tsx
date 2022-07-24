@@ -80,14 +80,14 @@ export const Sort: React.FC<SortProps> = ({
       <IconButton
         variant="info"
         aria-label="Sort Desc"
-        icon={<SortDescIcon />}
+        icon={<SortDescIcon w={5} h={5} />}
         onClick={handleClickDesc}
         isActive={order === 'desc'}
       />
       <IconButton
         variant="info"
         aria-label="Sort Asc"
-        icon={<SortAscIcon />}
+        icon={<SortAscIcon w={5} h={5} />}
         onClick={handleClickAsc}
         isActive={order === 'asc'}
       />

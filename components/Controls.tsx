@@ -49,7 +49,7 @@ export const Controls: React.FC<ControlsProps> = ({
         <IconButton
           variant="secondary"
           aria-label="Back"
-          icon={<ArrowIcon />}
+          icon={<ArrowIcon w={5} h={5} />}
           onClick={() => back()}
         />
         <Badge variant={breedId ? 'secondary' : 'primary'}>{path}</Badge>
@@ -69,7 +69,7 @@ export const Controls: React.FC<ControlsProps> = ({
         {upload && (
           <>
             <Spacer />
-            <Button variant="secondary" leftIcon={<UploadIcon />}>
+            <Button variant="secondary" leftIcon={<UploadIcon w={4} h={4} />}>
               Upload
             </Button>
           </>
