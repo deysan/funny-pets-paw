@@ -21,9 +21,14 @@ export type Fact = {
 
 export type Favorite = {
   id: string;
+  name?: string;
   image_id: string;
   sub_id: string;
   create_at: string;
+  image: {
+    id: string;
+    url: string;
+  };
 };
 
 export type Image = {

@@ -1,7 +1,10 @@
+import api from '../config';
 import NextLink from 'next/link';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Breed, Favorite } from '../models';
+import { FavFillIcon, FavIcon } from './icons';
 import { NotFound } from './NotFound';
+import { user } from '../utils';
 import {
   Badge,
   Box,
@@ -14,14 +17,11 @@ import {
   Spinner,
   useColorMode,
 } from '@chakra-ui/react';
-import { FavFillIcon, FavIcon } from './icons';
-import api from '../config';
-import { user } from '../utils';
 
 interface GridPhotosProps {
   info?: boolean;
   like?: boolean;
-  breeds: Breed[];
+  breeds: Breed[] | Favorite[];
   isLoading: boolean;
 }
 
@@ -117,7 +117,7 @@ export const GridPhotos: React.FC<GridPhotosProps> = ({
         >
           <Image
             src={breed.image.url}
-            alt={breed.name}
+            alt={breed?.name || breed.image.id}
             width="100%"
             height="100%"
             objectFit="cover"
@@ -152,9 +152,9 @@ export const GridPhotos: React.FC<GridPhotosProps> = ({
                 aria-label="Favorites"
                 icon={
                   favIds.includes(breed.image.id) ? (
-                    <FavFillIcon />
+                    <FavFillIcon w={5} h={5} />
                   ) : (
-                    <FavIcon />
+                    <FavIcon w={5} h={5} />
                   )
                 }
                 bgColor={colorMode === 'light' ? 'white' : '#282828'}
