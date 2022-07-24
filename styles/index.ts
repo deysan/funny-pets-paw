@@ -11,6 +11,7 @@ const styles: Styles = {
   global: (props: StyleFunctionProps) => ({
     body: {
       color: mode('var(--color-black)', 'white')(props),
+      fontWeight: 'normal',
       bg: mode('var(--color-white)', 'var(--color-black)')(props),
     },
   }),

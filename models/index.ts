@@ -32,6 +32,13 @@ export type Image = {
   breeds: {
     id: string | undefined;
     name: string | undefined;
+    description: string;
+    temperament: string;
+    origin: string;
+    weight: {
+      metric: string;
+    };
+    life_span: string;
   }[];
 };
 
