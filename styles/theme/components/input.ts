@@ -14,7 +14,7 @@ export const inputStyles: ComponentStyleConfig = {
   variants: {
     default: (props: StyleFunctionProps) => ({
       field: {
-        color: 'var(--color-black)',
+        color: mode('var(--color-black)', 'white')(props),
         fontSize: '20px',
         lineHeight: '30px',
         bgColor: mode('white', 'var(--color-bg-black)')(props),

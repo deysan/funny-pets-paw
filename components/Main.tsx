@@ -1,25 +1,21 @@
+import Image from 'next/image';
+import NextLink from 'next/link';
+import React from 'react';
+import { breeds, gallery, voting } from '../public/images';
+import { LogoIcon } from './icons';
+import { useRouter } from 'next/router';
 import {
   Box,
   Button,
   Flex,
   Heading,
-  IconButton,
   Link,
   SimpleGrid,
   Stack,
   Switch,
   Text,
   useColorMode,
-  VStack,
 } from '@chakra-ui/react';
-import { breeds, gallery, voting } from '../public/images';
-
-import Image from 'next/image';
-import NextLink from 'next/link';
-import React from 'react';
-import logo from '../public/logo.svg';
-import { useRouter } from 'next/router';
-import { LogoIcon } from './icons';
 
 export const Main: React.FC = () => {
   const { pathname } = useRouter();

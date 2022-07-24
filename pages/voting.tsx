@@ -133,7 +133,7 @@ const Voting: NextPage = () => {
             <HStack
               position="absolute"
               spacing={1}
-              display="inline-block"
+              display="inline-flex"
               bgColor="white"
               border={`4px solid ${
                 colorMode === 'light' ? 'white' : '#282828'
