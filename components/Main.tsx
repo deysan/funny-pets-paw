@@ -5,8 +5,8 @@ import {
   Heading,
   Link,
   SimpleGrid,
+  Switch,
   Text,
-  textDecoration,
   useColorMode,
 } from '@chakra-ui/react';
 import { breeds, gallery, voting } from '../public/images';
@@ -15,9 +15,13 @@ import Image from 'next/image';
 import NextLink from 'next/link';
 import React from 'react';
 import logo from '../public/logo.svg';
+import { useRouter } from 'next/router';
 
 export const Main: React.FC = () => {
+  const { pathname } = useRouter();
   const { colorMode, toggleColorMode } = useColorMode();
+
+  const path = pathname.replace('/', '');
 
   return (
     <Box
@@ -34,7 +38,11 @@ export const Main: React.FC = () => {
             <Image src={logo} width={106} height={24} alt="logo" />
           </Box>
         </NextLink>
-        <Button onClick={toggleColorMode}>Toggle</Button>
+        <Switch
+          colorScheme="red"
+          onChange={toggleColorMode}
+          isChecked={colorMode === 'dark'}
+        />
       </Flex>
       <Box>
         <Heading>Hi intern!</Heading>
@@ -60,16 +68,22 @@ export const Main: React.FC = () => {
                 alignItems="center"
                 height={200}
                 bgColor="var(--color-blue)"
-                border="4px solid rgba(255, 255, 255, 0.6)"
+                border={`4px solid ${
+                  path === 'voting'
+                    ? 'var(--color-bg-red)'
+                    : 'rgba(255, 255, 255, 0.6)'
+                }`}
                 borderRadius={20}
-                _groupHover={{ borderColor: 'white' }}
-                // _active={{ borderColor: 'var(--color-bg-red)' }}
+                _groupHover={{ borderColor: path !== 'voting' && 'white' }}
               >
                 <Image src={voting} width={100} height={125} alt="voting" />
               </Box>
               <Button
                 size="sm"
-                _groupHover={{ bgColor: 'var(--color-bg-red)' }}
+                isActive={path === 'voting'}
+                _groupHover={{
+                  bgColor: path !== 'voting' && 'var(--color-bg-red)',
+                }}
               >
                 Voting
               </Button>
@@ -90,16 +104,22 @@ export const Main: React.FC = () => {
                 alignItems="center"
                 height={200}
                 bgColor="var(--color-green)"
-                border="4px solid rgba(255, 255, 255, 0.6)"
+                border={`4px solid ${
+                  path === 'breeds'
+                    ? 'var(--color-bg-red)'
+                    : 'rgba(255, 255, 255, 0.6)'
+                }`}
                 borderRadius={20}
-                _groupHover={{ borderColor: 'white' }}
-                // _active={{ borderColor: 'var(--color-bg-red)' }}
+                _groupHover={{ borderColor: path !== 'breeds' && 'white' }}
               >
                 <Image src={breeds} width={117} height={163} alt="breeds" />
               </Box>
               <Button
                 size="sm"
-                _groupHover={{ bgColor: 'var(--color-bg-red)' }}
+                isActive={path === 'breeds'}
+                _groupHover={{
+                  bgColor: path !== 'breeds' && 'var(--color-bg-red)',
+                }}
               >
                 Breeds
               </Button>
@@ -120,16 +140,22 @@ export const Main: React.FC = () => {
                 alignItems="center"
                 height={200}
                 bgColor="var(--color-yellow)"
-                border="4px solid rgba(255, 255, 255, 0.6)"
+                border={`4px solid ${
+                  path === 'gallery'
+                    ? 'var(--color-bg-red)'
+                    : 'rgba(255, 255, 255, 0.6)'
+                }`}
                 borderRadius={20}
-                _groupHover={{ borderColor: 'white' }}
-                // _active={{ borderColor: 'var(--color-bg-red)' }}
+                _groupHover={{ borderColor: path !== 'gallery' && 'white' }}
               >
                 <Image src={gallery} width={117} height={163} alt="gallery" />
               </Box>
               <Button
                 size="sm"
-                _groupHover={{ bgColor: 'var(--color-bg-red)' }}
+                isActive={path === 'gallery'}
+                _groupHover={{
+                  bgColor: path !== 'gallery' && 'var(--color-bg-red)',
+                }}
               >
                 Gallery
               </Button>
