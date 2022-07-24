@@ -58,7 +58,7 @@ const Gallery: NextPage = () => {
         <title>Gallery – Funny Pets Paw</title>
       </Head>
       <Layout>
-        <Controls upload />
+        <Controls />
         <Filters setParams={setParams} setCurrentPage={setCurrentPage} />
         <GridPhotos breeds={breeds} isLoading={isLoading} like />
         {paginationCount > params.limit ? (
