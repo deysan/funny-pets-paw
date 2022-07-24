@@ -7,6 +7,7 @@ export const NotFound: React.FC = () => {
   return (
     <Box
       p={5}
+      width="100%"
       bgColor={
         colorMode === 'light' ? 'var(--color-white)' : 'var(--color-bg-black)'
       }

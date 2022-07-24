@@ -28,6 +28,11 @@ export const buttonStyles: ComponentStyleConfig = {
       height: '60px',
       borderRadius: '20px',
     },
+    xl: {
+      width: '80px',
+      height: '80px',
+      borderRadius: '0',
+    },
   },
   variants: {
     primary: (props: StyleFunctionProps) => ({
@@ -78,6 +83,30 @@ export const buttonStyles: ComponentStyleConfig = {
         borderColor: 'var(--color-bg-red)',
       },
     }),
+    red: {
+      color: 'white',
+      bgColor: 'var(--color-red)',
+      _hover: {
+        color: 'var(--color-red)',
+        bgColor: 'rgba(255, 134, 142, 0.3)',
+      },
+    },
+    green: {
+      color: 'white',
+      bgColor: 'var(--color-green)',
+      _hover: {
+        color: 'var(--color-green)',
+        bgColor: 'rgba(151, 234, 185, 0.3)',
+      },
+    },
+    yellow: {
+      color: 'white',
+      bgColor: 'var(--color-yellow)',
+      _hover: {
+        color: 'var(--color-yellow)',
+        bgColor: 'rgba(255, 210, 128, 0.3)',
+      },
+    },
   },
   defaultProps: {
     variant: 'primary',

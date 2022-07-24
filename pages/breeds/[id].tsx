@@ -41,8 +41,6 @@ const Breed: NextPage<BreedProps> = ({ breed }) => {
   const { query } = useRouter();
   const { colorMode } = useColorMode();
 
-  console.log(breed[0]);
-
   return (
     <>
       <Head>

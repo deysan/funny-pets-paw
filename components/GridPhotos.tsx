@@ -12,6 +12,7 @@ import {
   LinkBox,
   LinkOverlay,
   Spinner,
+  useColorMode,
 } from '@chakra-ui/react';
 import { FavFillIcon, FavIcon } from './icons';
 import api from '../config';
@@ -24,18 +25,20 @@ interface GridPhotosProps {
   isLoading: boolean;
 }
 
+const doubleCol = [3, 8, 13, 18];
+const doubleRow = [0, 3, 7, 8, 10, 13, 17, 18];
+
 export const GridPhotos: React.FC<GridPhotosProps> = ({
   info,
   like,
   breeds,
   isLoading,
 }) => {
-  const doubleCol = [3, 8, 13, 18];
-  const doubleRow = [0, 3, 7, 8, 10, 13, 17, 18];
-
-  const userId = useMemo(() => user(), []);
+  const { colorMode } = useColorMode();
 
   const [favorites, setFavorites] = useState<Favorite[]>([]);
+
+  const userId = useMemo(() => user(), []);
 
   const favIds = useMemo(
     () => favorites.map((fav) => fav.image_id),
@@ -152,6 +155,12 @@ export const GridPhotos: React.FC<GridPhotosProps> = ({
                     <FavIcon />
                   )
                 }
+                bgColor={colorMode === 'light' ? 'white' : '#282828'}
+                _hover={{
+                  bgColor: `${
+                    colorMode === 'light' ? 'var(--color-bg-red)' : '#282828'
+                  }`,
+                }}
                 onClick={() => handleFavorite(breed.image.id)}
               />
             )}
