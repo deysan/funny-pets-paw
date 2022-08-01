@@ -1,7 +1,4 @@
-import React from 'react';
 import { ArrowIcon, UploadIcon } from './icons';
-import { Sort } from './Sort';
-import { useRouter } from 'next/router';
 import {
   Badge,
   Box,
@@ -10,7 +7,11 @@ import {
   IconButton,
   Spacer,
 } from '@chakra-ui/react';
+
 import { Breed } from '../models';
+import React from 'react';
+import { Sort } from './Sort';
+import { useRouter } from 'next/router';
 
 interface ControlsProps {
   breedId?: string | string[];
@@ -24,6 +25,7 @@ interface ControlsProps {
   order?: string;
   setOrder?: React.Dispatch<React.SetStateAction<string>>;
   setCurrentPage?: React.Dispatch<React.SetStateAction<number>>;
+  onOpenUploadModal?: () => void;
 }
 
 export const Controls: React.FC<ControlsProps> = ({
@@ -38,6 +40,7 @@ export const Controls: React.FC<ControlsProps> = ({
   order,
   setOrder,
   setCurrentPage,
+  onOpenUploadModal,
 }) => {
   const { back, pathname } = useRouter();
 
@@ -69,7 +72,11 @@ export const Controls: React.FC<ControlsProps> = ({
         {upload && (
           <>
             <Spacer />
-            <Button variant="secondary" leftIcon={<UploadIcon w={4} h={4} />}>
+            <Button
+              variant="secondary"
+              leftIcon={<UploadIcon w={4} h={4} />}
+              onClick={onOpenUploadModal}
+            >
               Upload
             </Button>
           </>
