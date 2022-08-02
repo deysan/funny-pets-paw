@@ -2,10 +2,12 @@ import {
   Box,
   Button,
   Center,
-  Flex,
+  FormControl,
   Heading,
   IconButton,
+  Input,
   Link,
+  LinkOverlay,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -17,11 +19,14 @@ import {
   Spacer,
   Text,
   VStack,
+  VisuallyHiddenInput,
   useColorMode,
 } from '@chakra-ui/react';
-import { CloseIcon, FavIcon } from './icons';
+import React, { useRef, useState } from 'react';
 
-import React from 'react';
+import { CloseIcon } from './icons';
+import Image from 'next/image';
+import { upload } from '../public/images';
 
 interface UploadModalProps {
   isOpen: boolean;
@@ -33,6 +38,45 @@ export const UploadModal: React.FC<UploadModalProps> = ({
   onClose,
 }) => {
   const { colorMode } = useColorMode();
+  const inputRef = useRef(null);
+
+  const [image, setImage] = useState(null);
+  const [dragActive, setDragActive] = useState(false);
+
+  const handleFile = (file) => {
+    console.log(file);
+    setImage(file);
+  };
+
+  const handleDrag = function (event: any) {
+    event.preventDefault();
+    event.stopPropagation();
+    if (event.type === 'dragenter' || event.type === 'dragover') {
+      setDragActive(true);
+    } else if (event.type === 'dragleave') {
+      setDragActive(false);
+    }
+  };
+
+  const handleDrop = function (event: any) {
+    event.preventDefault();
+    event.stopPropagation();
+    setDragActive(false);
+    if (event.dataTransfer.files && event.dataTransfer.files[0]) {
+      handleFile(event.dataTransfer.files[0]);
+    }
+  };
+
+  const handleChange = function (event: any) {
+    event.preventDefault();
+    if (event.target.files && event.target.files[0]) {
+      handleFile(event.target.files[0]);
+    }
+  };
+
+  const handleClick = () => {
+    inputRef.current.click();
+  };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="full">
@@ -71,45 +115,80 @@ export const UploadModal: React.FC<UploadModalProps> = ({
         </Box>
 
         <Box textAlign="center">
+          <VisuallyHiddenInput
+            type="file"
+            accept="image/*,.jpeg,.jpg,.png"
+            ref={inputRef}
+            onChange={handleChange}
+          />
           <Center
+            as={Link}
+            position="relative"
             height="320px"
             mb={5}
             bgColor={colorMode === 'light' ? 'white' : 'var(--color-bg-black)'}
             borderWidth="2px"
-            borderStyle="dashed"
+            borderStyle={dragActive ? 'solid' : 'dashed'}
             borderColor={
               colorMode === 'light'
                 ? 'var(--color-bg-red)'
                 : 'var(--color-black-red)'
             }
             borderRadius="20px"
+            transition="all 0.3s"
+            zIndex="0"
+            onDragEnter={handleDrag}
+            onDragLeave={handleDrag}
+            onDragOver={handleDrag}
+            onDrop={handleDrop}
+            onClick={handleClick}
           >
-            <Text fontSize="20px" color="var(--color-bg-text)">
-              <Text
-                as="span"
-                fontWeight={500}
-                color={colorMode === 'light' ? 'var(--color-black)' : 'white'}
-              >
-                Drag here
-              </Text>{' '}
-              your file or{' '}
-              <Text
-                as="span"
-                fontWeight={500}
-                color={colorMode === 'light' ? 'var(--color-black)' : 'white'}
-              >
-                Click here
-              </Text>{' '}
-              to upload
-            </Text>
+            <Center
+              position="absolute"
+              zIndex="-1"
+              opacity={colorMode === 'light' ? 1 : 0.05}
+            >
+              <Image
+                src={upload}
+                width="200px"
+                height="200px"
+                layout="fixed"
+                placeholder="blur"
+                alt="Upload"
+              />
+            </Center>
+            {!dragActive && (
+              <Text fontSize="20px" color="var(--color-bg-text)">
+                <Text
+                  as="span"
+                  fontWeight={500}
+                  color={colorMode === 'light' ? 'var(--color-black)' : 'white'}
+                >
+                  Drag here
+                </Text>{' '}
+                your file or{' '}
+                <Text
+                  as="span"
+                  fontWeight={500}
+                  color={colorMode === 'light' ? 'var(--color-black)' : 'white'}
+                >
+                  Click here
+                </Text>{' '}
+                to upload
+              </Text>
+            )}
           </Center>
-          <Text fontSize="20px" color="var(--color-bg-text)">
-            No file selected
-          </Text>
-          {/* <Button variant="primary" onClick={onClose} isActive>
-            Upload Photo
-          </Button> */}
+          {image ? (
+            <Button variant="primary" onClick={onClose} isActive>
+              Upload Photo
+            </Button>
+          ) : (
+            <Text fontSize="20px" color="var(--color-bg-text)">
+              No file selected
+            </Text>
+          )}
         </Box>
+
         {/* <Box
           p={5}
           width="100%"

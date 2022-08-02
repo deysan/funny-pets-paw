@@ -23,18 +23,10 @@ export const modalStyles: ComponentStyleConfig = {
         maxWidth: '680px',
       },
       dialog: {
-        marginLeft: 0,
+        marginLeft: 'auto',
         marginRight: [8, 8, 8, 8, 8, 0],
         borderRadius: '20px',
       },
     },
   },
-  variants: {
-    upload: (props: StyleFunctionProps) => ({
-      dialog: {
-        borderRadius: '20px',
-      },
-    }),
-  },
-  defaultProps: {},
 };
