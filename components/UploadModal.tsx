@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Center,
+  Flex,
   Heading,
   IconButton,
   Img,
@@ -13,9 +14,9 @@ import {
   VisuallyHiddenInput,
   useColorMode,
 } from '@chakra-ui/react';
+import { CloseIcon, ErrorIcon, SuccessIcon } from './icons';
 import React, { useMemo, useRef, useState } from 'react';
 
-import { CloseIcon } from './icons';
 import Image from 'next/image';
 import api from '../config';
 import { upload } from '../public/images';
@@ -36,6 +37,9 @@ export const UploadModal: React.FC<UploadModalProps> = ({
   const [image, setImage] = useState<File | undefined>(undefined);
   const [preview, setPreview] = useState('');
   const [dragActive, setDragActive] = useState(false);
+  const [isLoading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
 
   const userId = useMemo(() => user(), []);
 
@@ -79,8 +83,11 @@ export const UploadModal: React.FC<UploadModalProps> = ({
   };
 
   const handleUpload = () => {
+    if (!image) return;
+    setLoading(true);
+
     const formData = new FormData();
-    image && formData.append('file', image);
+    formData.append('file', image);
     formData.append('sub_id', userId);
 
     api
@@ -90,9 +97,19 @@ export const UploadModal: React.FC<UploadModalProps> = ({
         },
       })
       .then((res) => {
-        console.log(res);
-      });
-    // .finally(() => setLoading(false));
+        if (res.status === 201) {
+          setError(false);
+          setSuccess(true);
+          setImage(undefined);
+          setPreview('');
+        }
+      })
+      .catch((error) => {
+        setSuccess(false);
+        setError(true);
+        console.error(error.message);
+      })
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -219,7 +236,11 @@ export const UploadModal: React.FC<UploadModalProps> = ({
               >
                 Image File Name: {image.name}
               </Text>
-              <Button variant="red" onClick={handleUpload}>
+              <Button
+                variant="red"
+                onClick={handleUpload}
+                isLoading={isLoading}
+              >
                 Upload Photo
               </Button>
             </>
@@ -230,16 +251,33 @@ export const UploadModal: React.FC<UploadModalProps> = ({
           )}
         </Box>
 
-        {/* <Box
-          p={5}
-          width="100%"
-          bgColor={colorMode === 'light' ? 'white' : 'var(--color-bg-black)'}
-          borderRadius={10}
-        >
-          <Text color="var(--color-bg-text)">
-            Thanks for the Upload - Cat found!
-          </Text>
-        </Box> */}
+        {(success || error) && (
+          <Flex
+            p={5}
+            gap={2.5}
+            width="100%"
+            alignItems="center"
+            bgColor={colorMode === 'light' ? 'white' : 'var(--color-bg-black)'}
+            borderRadius={10}
+          >
+            {success && (
+              <>
+                <SuccessIcon w={5} h={5} color="var(--color-green)" />
+                <Text color="var(--color-bg-text)">
+                  Thanks for the Upload - Cat found!
+                </Text>
+              </>
+            )}
+            {error && (
+              <>
+                <ErrorIcon w={5} h={5} color="var(--color-red)" />
+                <Text color="var(--color-bg-text)">
+                  No Cat found - try a different one
+                </Text>
+              </>
+            )}
+          </Flex>
+        )}
       </ModalContent>
     </Modal>
   );
