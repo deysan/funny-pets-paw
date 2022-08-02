@@ -22,11 +22,13 @@ import {
   VisuallyHiddenInput,
   useColorMode,
 } from '@chakra-ui/react';
-import React, { useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 
 import { CloseIcon } from './icons';
 import Image from 'next/image';
+import api from '../config';
 import { upload } from '../public/images';
+import { user } from '../utils';
 
 interface UploadModalProps {
   isOpen: boolean;
@@ -38,19 +40,22 @@ export const UploadModal: React.FC<UploadModalProps> = ({
   onClose,
 }) => {
   const { colorMode } = useColorMode();
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null!);
 
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState<File | undefined>(undefined);
   const [dragActive, setDragActive] = useState(false);
 
-  const handleFile = (file) => {
+  const userId = useMemo(() => user(), []);
+
+  const handleFile = (file: File) => {
     console.log(file);
     setImage(file);
   };
 
-  const handleDrag = function (event: any) {
+  const handleDrag = function (event: React.DragEvent<HTMLDivElement>) {
     event.preventDefault();
     event.stopPropagation();
+
     if (event.type === 'dragenter' || event.type === 'dragover') {
       setDragActive(true);
     } else if (event.type === 'dragleave') {
@@ -58,17 +63,20 @@ export const UploadModal: React.FC<UploadModalProps> = ({
     }
   };
 
-  const handleDrop = function (event: any) {
+  const handleDrop = function (event: React.DragEvent<HTMLDivElement>) {
     event.preventDefault();
     event.stopPropagation();
+
     setDragActive(false);
+
     if (event.dataTransfer.files && event.dataTransfer.files[0]) {
       handleFile(event.dataTransfer.files[0]);
     }
   };
 
-  const handleChange = function (event: any) {
+  const handleChange = function (event: React.ChangeEvent<HTMLInputElement>) {
     event.preventDefault();
+
     if (event.target.files && event.target.files[0]) {
       handleFile(event.target.files[0]);
     }
@@ -76,6 +84,23 @@ export const UploadModal: React.FC<UploadModalProps> = ({
 
   const handleClick = () => {
     inputRef.current.click();
+  };
+
+  const handleUpload = () => {
+    const formData = new FormData();
+    image && formData.append('file', image);
+    formData.append('sub_id', userId);
+
+    api
+      .post('/images/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      });
+    // .finally(() => setLoading(false));
   };
 
   return (
@@ -179,7 +204,7 @@ export const UploadModal: React.FC<UploadModalProps> = ({
             )}
           </Center>
           {image ? (
-            <Button variant="primary" onClick={onClose} isActive>
+            <Button variant="primary" onClick={handleUpload} isActive>
               Upload Photo
             </Button>
           ) : (
