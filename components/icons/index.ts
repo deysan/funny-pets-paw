@@ -1,4 +1,5 @@
 export * from './arrow';
+export * from './close';
 export * from './dislike';
 export * from './dropdown';
 export * from './fav';
