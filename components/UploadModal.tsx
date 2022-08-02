@@ -210,9 +210,19 @@ export const UploadModal: React.FC<UploadModalProps> = ({
             )}
           </Center>
           {image ? (
-            <Button variant="red" onClick={handleUpload} isActive>
-              Upload Photo
-            </Button>
+            <>
+              <Text
+                mb={5}
+                fontSize="20px"
+                color="var(--color-bg-text)"
+                noOfLines={1}
+              >
+                Image File Name: {image.name}
+              </Text>
+              <Button variant="red" onClick={handleUpload}>
+                Upload Photo
+              </Button>
+            </>
           ) : (
             <Text fontSize="20px" color="var(--color-bg-text)">
               No file selected
