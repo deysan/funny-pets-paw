@@ -12,7 +12,7 @@ export const modalStyles: ComponentStyleConfig = {
       marginY: 6,
       padding: 5,
       bgColor: mode('var(--color-white)', 'rgba(40, 40, 40, 1)')(props),
-      borderRadius: '20px',
+      borderRadius: 20,
     },
   }),
   sizes: {
@@ -25,7 +25,7 @@ export const modalStyles: ComponentStyleConfig = {
       dialog: {
         marginLeft: 'auto',
         marginRight: [8, 8, 8, 8, 8, 0],
-        borderRadius: '20px',
+        borderRadius: 20,
       },
     },
   },

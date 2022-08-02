@@ -2,23 +2,14 @@ import {
   Box,
   Button,
   Center,
-  FormControl,
   Heading,
   IconButton,
-  Input,
+  Img,
   Link,
-  LinkOverlay,
   Modal,
-  ModalBody,
-  ModalCloseButton,
   ModalContent,
-  ModalFooter,
-  ModalHeader,
   ModalOverlay,
-  SimpleGrid,
-  Spacer,
   Text,
-  VStack,
   VisuallyHiddenInput,
   useColorMode,
 } from '@chakra-ui/react';
@@ -43,13 +34,14 @@ export const UploadModal: React.FC<UploadModalProps> = ({
   const inputRef = useRef<HTMLInputElement>(null!);
 
   const [image, setImage] = useState<File | undefined>(undefined);
+  const [preview, setPreview] = useState('');
   const [dragActive, setDragActive] = useState(false);
 
   const userId = useMemo(() => user(), []);
 
   const handleFile = (file: File) => {
-    console.log(file);
     setImage(file);
+    setPreview(URL.createObjectURL(file));
   };
 
   const handleDrag = function (event: React.DragEvent<HTMLDivElement>) {
@@ -150,7 +142,9 @@ export const UploadModal: React.FC<UploadModalProps> = ({
             as={Link}
             position="relative"
             height="320px"
-            mb={5}
+            marginBottom={5}
+            paddingX={10}
+            paddingY={5}
             bgColor={colorMode === 'light' ? 'white' : 'var(--color-bg-black)'}
             borderWidth="2px"
             borderStyle={dragActive ? 'solid' : 'dashed'}
@@ -159,8 +153,8 @@ export const UploadModal: React.FC<UploadModalProps> = ({
                 ? 'var(--color-bg-red)'
                 : 'var(--color-black-red)'
             }
-            borderRadius="20px"
-            transition="all 0.3s"
+            borderRadius={20}
+            transition="all 0.3s ease"
             zIndex="0"
             onDragEnter={handleDrag}
             onDragLeave={handleDrag}
@@ -171,7 +165,8 @@ export const UploadModal: React.FC<UploadModalProps> = ({
             <Center
               position="absolute"
               zIndex="-1"
-              opacity={colorMode === 'light' ? 1 : 0.05}
+              opacity={dragActive ? 0 : colorMode === 'light' ? 1 : 0.05}
+              transition="all 0.3s ease"
             >
               <Image
                 src={upload}
@@ -182,7 +177,18 @@ export const UploadModal: React.FC<UploadModalProps> = ({
                 alt="Upload"
               />
             </Center>
-            {!dragActive && (
+            {preview ? (
+              <Img
+                src={preview}
+                width="100%"
+                height="100%"
+                objectFit="cover"
+                objectPosition="center"
+                borderRadius={10}
+                loading="lazy"
+                alt="Funny Pet"
+              />
+            ) : (
               <Text fontSize="20px" color="var(--color-bg-text)">
                 <Text
                   as="span"
@@ -204,7 +210,7 @@ export const UploadModal: React.FC<UploadModalProps> = ({
             )}
           </Center>
           {image ? (
-            <Button variant="primary" onClick={handleUpload} isActive>
+            <Button variant="red" onClick={handleUpload} isActive>
               Upload Photo
             </Button>
           ) : (
