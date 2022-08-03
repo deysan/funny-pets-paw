@@ -1,5 +1,6 @@
+import { StyleFunctionProps, mode } from '@chakra-ui/theme-tools';
+
 import type { ComponentStyleConfig } from '@chakra-ui/react';
-import { mode, StyleFunctionProps } from '@chakra-ui/theme-tools';
 
 export const buttonStyles: ComponentStyleConfig = {
   baseStyle: {
@@ -32,6 +33,11 @@ export const buttonStyles: ComponentStyleConfig = {
       width: '80px',
       height: '80px',
       borderRadius: '0',
+    },
+    eye: {
+      width: '24px',
+      height: '24px',
+      borderRadius: '50%',
     },
   },
   variants: {

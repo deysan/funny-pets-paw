@@ -3,6 +3,7 @@ export * from './close';
 export * from './dislike';
 export * from './dropdown';
 export * from './error';
+export * from './eye';
 export * from './fav';
 export * from './like';
 export * from './logo';
