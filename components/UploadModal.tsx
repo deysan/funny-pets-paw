@@ -93,7 +93,7 @@ export const UploadModal: React.FC<UploadModalProps> = ({
     formData.append('sub_id', userId);
 
     api
-      .post('/images/uploads', formData, {
+      .post('/images/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
