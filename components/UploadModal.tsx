@@ -46,6 +46,8 @@ export const UploadModal: React.FC<UploadModalProps> = ({
   const handleFile = (file: File) => {
     setImage(file);
     setPreview(URL.createObjectURL(file));
+    setSuccess(false);
+    setError(false);
   };
 
   const handleDrag = function (event: React.DragEvent<HTMLDivElement>) {
@@ -91,7 +93,7 @@ export const UploadModal: React.FC<UploadModalProps> = ({
     formData.append('sub_id', userId);
 
     api
-      .post('/images/upload', formData, {
+      .post('/images/uploads', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -171,15 +173,13 @@ export const UploadModal: React.FC<UploadModalProps> = ({
                 ? 'var(--color-black-red)'
                 : 'var(--color-bg-black)'
             }
-            borderWidth="2px"
-            borderStyle={dragActive ? 'solid' : 'dashed'}
-            borderColor={
+            backgroundImage={`url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='20' ry='20' stroke=${
               !error && colorMode === 'light'
-                ? 'var(--color-bg-red)'
+                ? `'%23FBE0DCFF'`
                 : !error && colorMode === 'dark'
-                ? 'var(--color-black-red)'
-                : 'var(--color-red)'
-            }
+                ? `'%23FF868E33'`
+                : `'%23FF868EFF'`
+            } stroke-width='4' stroke-dasharray='10' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e")`}
             borderRadius={20}
             transition="all 0.3s ease"
             zIndex="0"
