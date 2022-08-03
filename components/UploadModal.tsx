@@ -162,13 +162,23 @@ export const UploadModal: React.FC<UploadModalProps> = ({
             marginBottom={5}
             paddingX={10}
             paddingY={5}
-            bgColor={colorMode === 'light' ? 'white' : 'var(--color-bg-black)'}
+            bgColor={
+              !error && colorMode === 'light'
+                ? 'white'
+                : error && colorMode === 'light'
+                ? 'var(--color-bg-red)'
+                : error && colorMode === 'dark'
+                ? 'var(--color-black-red)'
+                : 'var(--color-bg-black)'
+            }
             borderWidth="2px"
             borderStyle={dragActive ? 'solid' : 'dashed'}
             borderColor={
-              colorMode === 'light'
+              !error && colorMode === 'light'
                 ? 'var(--color-bg-red)'
-                : 'var(--color-black-red)'
+                : !error && colorMode === 'dark'
+                ? 'var(--color-black-red)'
+                : 'var(--color-red)'
             }
             borderRadius={20}
             transition="all 0.3s ease"
