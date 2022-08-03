@@ -1,6 +1,3 @@
-import api from '../config';
-import Head from 'next/head';
-import React, { useCallback, useEffect, useState } from 'react';
 import { Breed, Image, Params } from '../models';
 import {
   Controls,
@@ -8,10 +5,22 @@ import {
   GridPhotos,
   Layout,
   Pagination,
+  UploadModal,
 } from '../components';
+import React, { useCallback, useEffect, useState } from 'react';
+
+import Head from 'next/head';
 import type { NextPage } from 'next';
+import api from '../config';
+import { useDisclosure } from '@chakra-ui/react';
 
 const Gallery: NextPage = () => {
+  const {
+    isOpen: isOpenUploadModal,
+    onOpen: onOpenUploadModal,
+    onClose: onCloseUploadModal,
+  } = useDisclosure();
+
   const [breeds, setBreeds] = useState<Breed[]>([]);
   const [isLoading, setLoading] = useState(false);
   const [paginationCount, setPaginationCount] = useState(1);
@@ -58,7 +67,7 @@ const Gallery: NextPage = () => {
         <title>Gallery – Funny Pets Paw</title>
       </Head>
       <Layout>
-        <Controls />
+        <Controls upload onOpenUploadModal={onOpenUploadModal} />
         <Filters setParams={setParams} setCurrentPage={setCurrentPage} />
         <GridPhotos breeds={breeds} isLoading={isLoading} like />
         {paginationCount > params.limit ? (
@@ -70,6 +79,7 @@ const Gallery: NextPage = () => {
           />
         ) : null}
       </Layout>
+      <UploadModal isOpen={isOpenUploadModal} onClose={onCloseUploadModal} />
     </>
   );
 };

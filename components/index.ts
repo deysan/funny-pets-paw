@@ -8,3 +8,4 @@ export * from './Pagination';
 export * from './Search';
 export * from './Sort';
 export * from './TopBar';
+export * from './UploadModal';

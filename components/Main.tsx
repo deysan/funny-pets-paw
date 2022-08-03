@@ -1,14 +1,9 @@
-import Image from 'next/image';
-import NextLink from 'next/link';
-import React from 'react';
-import { breeds, gallery, voting } from '../public/images';
-import { LogoIcon } from './icons';
-import { useRouter } from 'next/router';
 import {
   Box,
   Button,
   Flex,
   Heading,
+  IconButton,
   Link,
   SimpleGrid,
   Stack,
@@ -16,6 +11,13 @@ import {
   Text,
   useColorMode,
 } from '@chakra-ui/react';
+import { EyeIcon, LogoIcon } from './icons';
+import { breeds, gallery, voting } from '../public/images';
+
+import Image from 'next/image';
+import NextLink from 'next/link';
+import React from 'react';
+import { useRouter } from 'next/router';
 
 export const Main: React.FC = () => {
   const { pathname } = useRouter();
@@ -38,11 +40,21 @@ export const Main: React.FC = () => {
             <LogoIcon width="106px" height="24px" />
           </Box>
         </NextLink>
-        <Switch
-          colorScheme="red"
-          onChange={toggleColorMode}
-          isChecked={colorMode === 'dark'}
-        />
+        <Box>
+          <IconButton
+            mr={1}
+            size="eye"
+            icon={<EyeIcon w={4} h={4} />}
+            aria-label="Switch Theme"
+            onClick={toggleColorMode}
+          />
+          <Switch
+            id="switch-theme"
+            colorScheme="red"
+            onChange={toggleColorMode}
+            isChecked={colorMode === 'dark'}
+          />
+        </Box>
       </Flex>
       <Stack mt={5}>
         <Heading fontSize="44px" fontWeight={500}>
