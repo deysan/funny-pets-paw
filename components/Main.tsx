@@ -61,12 +61,12 @@ export const Main: React.FC = () => {
           Hi, Cat lover!
         </Heading>
         <Text fontSize="20px" color="var(--color-bg-text)">
-          Welcome to PetsPaw breed explorer application
+          Welcome to Funny Pets Paw breed explorer application
         </Text>
       </Stack>
       <Box mt={5}>
         <Text mb={5} fontSize="20px" fontWeight={500}>
-          Let's start exploring breeds
+          Let`s start exploring breeds
         </Text>
         <SimpleGrid columns={{ sm: 3 }} spacing={{ base: 6, sm: 4 }}>
           <NextLink href="/voting" passHref>
