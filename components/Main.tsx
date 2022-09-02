@@ -58,15 +58,15 @@ export const Main: React.FC = () => {
       </Flex>
       <Stack mt={5}>
         <Heading fontSize="44px" fontWeight={500}>
-          Hi intern!
+          Hi, Cat lover!
         </Heading>
         <Text fontSize="20px" color="var(--color-bg-text)">
-          Welcome to MI 2022 Front-end test
+          Welcome to PetsPaw breed explorer application
         </Text>
       </Stack>
       <Box mt={5}>
         <Text mb={5} fontSize="20px" fontWeight={500}>
-          Lets start using The Cat API
+          Let's start exploring breeds
         </Text>
         <SimpleGrid columns={{ sm: 3 }} spacing={{ base: 6, sm: 4 }}>
           <NextLink href="/voting" passHref>
