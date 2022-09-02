@@ -1,3 +1,15 @@
+# [Funny Pets Paw](https://funny-pets-paw.vercel.app/)
+
+## Tech stack
+<div>
+<a href="https://www.typescriptlang.org/" title="Typescript"><img src="https://github.com/get-icon/geticon/raw/master/icons/typescript-icon.svg" alt="Typescript" width="50px" height="50px"></a>
+<a href="https://nextjs.org/" title="Next.js"><img src="https://github.com/get-icon/geticon/raw/master/icons/nextjs-icon.svg" alt="Next.js" width="50px" height="50px"></a>
+<a href="https://chakra-ui.com/" title="Chakra UI"><img src="https://github.com/get-icon/geticon/raw/master/icons/chakra-icon.svg" alt="Chakra UI" width="50px" height="50px"></a>
+</div>
+
+
+***
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
